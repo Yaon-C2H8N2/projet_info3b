@@ -39,6 +39,3 @@
  balai.merge(mesh_poil_balai3.geometry, mesh_poil_balai3.matrix);
 
  //scene.add(balai);
-
-
-  
