@@ -48,7 +48,6 @@ function initPierre(scene,material){
     faceQuad = new THREE.Mesh(faceGeom);
     faceQuad.updateMatrix();
     poigne.merge(faceQuad.geometry, faceQuad.matrix);
-    //scene.add(faceQuad);
   }
 
   //affichage de la poignée dans la scene
@@ -65,10 +64,6 @@ function initPierre(scene,material){
   p1 = poigne_base.vertices[nbFacesCylindres*2+nbFacesCylindres/2];
   p3 = cylindre_milieu.vertices[nbFacesCylindres/2];
   p2 = new THREE.Vector3(p3.x,p1.y,0);
-  /*scene.add(traceBezier([p1,p2,p3],10));
-  tracePoint(scene,p1);
-  tracePoint(scene,p2);
-  tracePoint(scene,p3);*/
   scene.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p1,p2,p3],0x999999,1,false));
 
   //deuxième lathe
@@ -77,9 +72,5 @@ function initPierre(scene,material){
   p5 = cylindre_milieu.vertices[nbFacesCylindres*2+nbFacesCylindres/2].clone();
   p5.y = p5.y-hauteur;
   p6 = new THREE.Vector3(0,p5.y,0);
-  /*scene.add(traceBezier([p4,p5,p6],10));
-  tracePoint(scene,p4);
-  tracePoint(scene,p5);
-  tracePoint(scene,p6);*/
   scene.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p4,p5,p6],0x999999,1,false));
 }
