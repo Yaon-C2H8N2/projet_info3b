@@ -18,8 +18,6 @@ function init(){
  //plans contenant deux axes du repere
  //planRepere(scene);
 
- //testCommit
-
  MaterialPhong = new THREE.MeshPhongMaterial({
    color: "#FF0000",
    opacity: 0.5,
