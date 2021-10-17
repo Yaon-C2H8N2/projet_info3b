@@ -30,7 +30,9 @@ function init(){
    side: THREE.DoubleSide,
  })
 
- initPierre(scene,MaterialPhong);
+ //initPierre(scene,MaterialPhong);
+ initPiste(scene);
+ initBalai(scene);
 
  //********************************************************
  //
