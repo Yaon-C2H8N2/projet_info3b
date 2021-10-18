@@ -1,4 +1,4 @@
 # Projet Info3B
 
 ## Lancer le projet
-Pour lancer le projet, le fichier HTML se situe dans *tpInit/html/02_repereGUI.html*
+Pour lancer le projet, le fichier HTML se situe dans *tpInit/html/02_repereGUI.html* (Ouvrir avec Firefox ou Chrome de préférence).
