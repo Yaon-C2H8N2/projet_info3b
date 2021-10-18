@@ -33,7 +33,7 @@ function init(){
  Rouge = new THREE.MeshPhongMaterial({
    color: "#FF0000",
    opacity: 0.5,
-   transparent: true,
+   //transparent: true,
    emissive: 0x000000,
    //specular: "#00FFFF",
    flatShading: true,
