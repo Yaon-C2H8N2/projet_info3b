@@ -1,4 +1,4 @@
-#Projet Info3B
+# Projet Info3B
 
-##Lancer le projet
+## Lancer le projet
 Pour lancer le projet, le fichier HTML se situe dans *tpInit/html/02_repereGUI.html*
