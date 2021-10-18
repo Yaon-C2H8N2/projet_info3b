@@ -14,7 +14,7 @@ function init(){
  cameraLumiere(scene,camera);
  lumiere(scene);
  //repere(scene);
- controls = new THREE.TrackballControls(camera);
+ //controls = new THREE.TrackballControls(camera);
  //plans contenant deux axes du repere
  //planRepere(scene);
 
@@ -42,15 +42,29 @@ function init(){
    side: THREE.DoubleSide,
  })
 
+ function test_point(A,coul){
+   sphereGeom = new THREE.SphereGeometry(0.05,10,10);
+   if(coul == undefined)mesh = new THREE.Mesh(sphereGeom,new THREE.MeshBasicMaterial({color: 0x999999}));
+   else mesh = new THREE.Mesh(sphereGeom,new THREE.MeshBasicMaterial({color: coul}));
+   mesh.position.x = A.x;
+   mesh.position.y = A.y;
+   mesh.position.z = A.z;
+   return mesh;
+ }
+
  pierre_rouge = initPierre(scene,Rouge);
  scene.add(pierre_rouge);
  piste = initPiste(scene);
  scene.add(piste);
 
  p1 = new THREE.Vector3(pierre_rouge.getWorldPosition().x,pierre_rouge.getWorldPosition().y,0);
- tracePoint(scene,p1);
- p2 = new THREE.Vector3(0,33.31,0);
- tracePoint(scene,p2);
+ p3 = new THREE.Vector3(0,33.31,0);
+ p2 = new THREE.Vector3(0,(33.31+pierre_rouge.getWorldPosition().y)/2,0);
+ p2_sphere = test_point(p2);
+ p3_sphere = test_point(p3);
+ scene.add(p2_sphere);
+ scene.add(p3_sphere);
+
 
  //********************************************************
  //
@@ -68,6 +82,9 @@ function init(){
    this.cameraxDir = 0;//camera.getWorldDirection().x;
    this.camerayDir = 0;//camera.getWorldDirection().y;
    this.camerazDir = 0;//camera.getWorldDirection().z;
+
+   this.P3x = p3.x;
+   this.P3y = p3.y-33.31;
    //pour actualiser dans la scene
    this.actualisation = function () {
     posCamera();
@@ -79,6 +96,18 @@ function init(){
  ajoutCameraGui(gui,menuGUI,camera);
  //ajout du menu pour actualiser l'affichage
  gui.add(menuGUI, "actualisation");
+ gui.add(menuGUI, "P3x",-1.95,1.95).onChange(function(){
+   scene.remove(p3_sphere);
+   p3.x = menuGUI.P3x;
+   p3_sphere = test_point(p3);
+   scene.add(p3_sphere);
+ })
+ gui.add(menuGUI, "P3y",-1.95,1.95).onChange(function(){
+   p3.y = menuGUI.P3y+33.31;
+   scene.remove(p3_sphere);
+   p3_sphere = test_point(p3);
+   scene.add(p3_sphere);
+ })
  menuGUI.actualisation();
  //********************************************************
  //
@@ -124,7 +153,7 @@ function init(){
     // render avec requestAnimationFrame
     requestAnimationFrame(renduAnim);
 // ajoute le rendu dans l'element HTML
-    controls.update();
+    //controls.update();
     rendu.render(scene, camera);
   }
 
