@@ -7,20 +7,20 @@ function initPiste(scene) {
   //scene.add(mesh_fond);
 
   rond_rouge = new THREE.RingGeometry( 1.88, 1.22, 20 );
-  rond_rouge.translate(0,33.31,0.01);
+  rond_rouge.translate(0,33.31,0);
   materialRouge = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide} );
   mesh_rond_rouge = new THREE.Mesh(rond_rouge, materialRouge);
   //scene.add(mesh_rond_rouge);
 
   rond_bleu = new THREE.RingGeometry(0.66, 0.15, 20);
-  rond_bleu.translate(0,33.31,0.01);
+  rond_bleu.translate(0,33.31,0);
   materialBleu = new THREE.MeshBasicMaterial( {color: 0x0000ff, side: THREE.DoubleSide} );
   mesh_rond_bleu = new THREE.Mesh(rond_bleu, materialBleu);
   //scene.add(mesh_rond_bleu);
 
 
-  ptDepart1 = new THREE.Vector3(-2.25,0,0.01);
-  ptDepart2 = new THREE.Vector3(2.25,0,0.01);
+  ptDepart1 = new THREE.Vector3(-2.25,0,0);
+  ptDepart2 = new THREE.Vector3(2.25,0,0);
   segment(scene, ptDepart1, ptDepart2);
 
   piste = new THREE.Group();
