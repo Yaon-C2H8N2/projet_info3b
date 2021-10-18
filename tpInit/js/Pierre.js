@@ -1,5 +1,7 @@
 function initPierre(scene,material){
   //traçage des différents cylindres
+  pierre = new THREE.Group();
+
   nbFacesCylindres = 10;
   poigne_horizontale = new THREE.CylinderGeometry(0.2,0.2,1,nbFacesCylindres);
   mesh_poigne_horizontale = new THREE.Mesh(poigne_horizontale,material);
@@ -52,19 +54,19 @@ function initPierre(scene,material){
 
   //affichage de la poignée dans la scene
   mesh_poigne = new THREE.Mesh(poigne,material);
-  scene.add(mesh_poigne);
+  pierre.add(mesh_poigne);
 
   //cylindre de la pierre
   cylindre_milieu = new THREE.CylinderGeometry(1.5,1.5,0.5,nbFacesCylindres*2);
   cylindre_milieu.translate(0,-1,0);
   mesh_cylindre_milieu = new THREE.Mesh(cylindre_milieu,material);
-  scene.add(mesh_cylindre_milieu);
+  pierre.add(mesh_cylindre_milieu);
 
   //première lathe
   p1 = poigne_base.vertices[nbFacesCylindres*2+nbFacesCylindres/2];
   p3 = cylindre_milieu.vertices[nbFacesCylindres/2];
   p2 = new THREE.Vector3(p3.x,p1.y,0);
-  scene.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p1,p2,p3],0x999999,1,false));
+  pierre.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p1,p2,p3],0x999999,1,false));
 
   //deuxième lathe
   hauteur = Math.abs(p3.y-p1.y);
@@ -72,5 +74,7 @@ function initPierre(scene,material){
   p5 = cylindre_milieu.vertices[nbFacesCylindres*2+nbFacesCylindres/2].clone();
   p5.y = p5.y-hauteur;
   p6 = new THREE.Vector3(0,p5.y,0);
-  scene.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p4,p5,p6],0x999999,1,false));
+  pierre.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p4,p5,p6],0x999999,1,false));
+
+  scene.add(pierre);
 }
