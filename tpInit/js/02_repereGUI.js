@@ -107,7 +107,7 @@ function init(){
 
  function reAffichage() {
   setTimeout(function () {
-   reAffichage();
+   posCamera();
  }, 200);// fin setTimeout(function ()
     // render avec requestAnimationFrame
   rendu.render(scene, camera);
