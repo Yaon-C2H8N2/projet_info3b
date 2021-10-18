@@ -1,4 +1,4 @@
- function cameraLumiere(scene,camera){   // creation de la camera 
+ function cameraLumiere(scene,camera){   // creation de la camera
   camera.up = new THREE.Vector3( 0, 0, 1 );
   var xPos=6;
   //modification de la jauge si document.forms["controle"].PosX.value;
@@ -13,7 +13,7 @@
     //camera.lookAt(scene.position);
     //camera.lookAt(new THREE.Vector3(0,0,0));
 } // fin fonction cameraLumiere
- 
+
  function actuaPosCameraHTML(xPos, yPos, zPos,xDir, yDir, zDir){
   document.forms["controle"].PosX.value=xPos;
   document.forms["controle"].PosY.value=yPos;
@@ -22,12 +22,12 @@
   document.forms["controle"].DirY.value=yDir;
   document.forms["controle"].DirZ.value=zDir;
  }
- 
+
  function ajoutCameraGui(gui,menuGUI,camera){
   // ajout de la camera dans le menu du GUI
  let guiCamera = gui.addFolder("Camera");
   // ajout des propriete de la camera
- // actualisation de la camera apres clic sur la zone idoine 
+ // actualisation de la camera apres clic sur la zone idoine
  // guiCamera.add(menuGUI,"cameraxPos",-borneVue,borneVue).onChange(posCamera());
  // guiCamera.add(menuGUI,"camerayPos",-borneVue,borneVue).onChange(posCamera());
  // guiCamera.add(menuGUI,"camerazPos",-borneVue,borneVue).onChange(posCamera());
@@ -55,7 +55,7 @@
    // document.forms["controle"].PosX.value=testZero(menuGUI.cameraxPos);
     camera.lookAt(testZero(menuGUI.cameraxDir), testZero(menuGUI.camerayDir), testZero(menuGUI.camerazDir));
   });
- 
+
  // zoom de la camera dans le menu
  guiCamera.add(menuGUI,"cameraZoom",-10,10).onChange(function () {
     camera.position.set(menuGUI.cameraxPos*testZero(menuGUI.cameraZoom), menuGUI.camerayPos*testZero(menuGUI.cameraZoom), menuGUI.camerazPos*testZero(menuGUI.cameraZoom));
@@ -89,7 +89,7 @@
  guiCamera.add(menuGUI,"camerazDir",-borneVue,borneVue).onChange(posCamera());*/
  }//fin fonction ajoutCameraGui
 //*************************************************************
-//* 
+//*
 //        F I N     C A M E R A
 //
 //*************************************************************
@@ -109,11 +109,11 @@ function planRepere(scene){
   planeR.rotateX(Math.PI/2);
   planeB.rotateX(Math.PI/2);
   planeB.rotateY(Math.PI/2);
-  planeR.receiveShadow = true; 
+  planeR.receiveShadow = true;
   planeR.castShadow = true;
-  planeG.receiveShadow = true; 
+  planeG.receiveShadow = true;
   planeG.castShadow = true;
-  planeB.receiveShadow = true; 
+  planeB.receiveShadow = true;
   planeB.castShadow = true;
   scene.add(planeR);
   scene.add(planeG);
@@ -121,7 +121,7 @@ function planRepere(scene){
 }
  //fin plans
 //*************************************************************
-//* 
+//*
 //        F I N    Plans
 //
 //*************************************************************
@@ -151,14 +151,14 @@ function planRepere(scene){
     lumPt1.position.set(5,5,15);
     lumPt1.intensity = 1;
     scene.add(lumPt1);
- /*   
+ /*
     let lumDir = new THREE.DirectionalLight(0xfffffff, 0.5);
 lumDir.position.set(0, 4, 0);
 lumDir.castShadow = true;
-lumDir.shadow.mapSize.width = 512;  
-lumDir.shadow.mapSize.height = 512; 
+lumDir.shadow.mapSize.width = 512;
+lumDir.shadow.mapSize.height = 512;
 lumDir.shadow.camera.near = 0.5;
-lumDir.shadow.camera.far = 500     
+lumDir.shadow.camera.far = 500
 
 //scene.add(new THREE.*/
  // add spotlight for the shadows
@@ -200,13 +200,13 @@ lumDir.shadow.camera.far = 500
   spotConique2.shadow.radius = 10;
   spotConique2.intensity = 0.5;
   spotConique2.angle = Math.PI/12;
-  spotConique2.shadow.mapSize = new THREE.Vector2(Math.pow(2,10), Math.pow(2,10)); 
+  spotConique2.shadow.mapSize = new THREE.Vector2(Math.pow(2,10), Math.pow(2,10));
   //spotConique2.onlyShadow = true;
   scene.add(spotConique2);
   // affichage du cone de lumiere en "fil de fer"
  // var visualisationConeSpot1 = new THREE.SpotLightHelper(spotConique2);
  // scene.add(visualisationConeSpot1);
-    
+
  /*   // add spotlight for the shadows
     var spotConique12 = new THREE.SpotLight(0xFF4411);
   spotConique12.castShadow = true;
@@ -217,13 +217,13 @@ lumDir.shadow.camera.far = 500
   spotConique12.castShadow = true;
   spotConique12.shadow.mapSize = new THREE.Vector2(1024, 1024);
  // scene.add(spotConique12);
-  // If you want a more detailled shadow you can increase the 
+  // If you want a more detailled shadow you can increase the
   // mapSize used to draw the shadows.
   // spotConique1.shadow.mapSize = new THREE.Vector2(1024, 1024);
   var ambienLight = new THREE.AmbientLight(0x222222);
   scene.add(ambienLight);*/
- 
- 
+
+
   const dCyl=0.2;
   let LumiereDirectionnelle = new THREE.DirectionalLight(0x8888FF);
   LumiereDirectionnelle.position.set(1, 10, 1);
@@ -246,5 +246,5 @@ lumDir.shadow.camera.far = 500
   scene.add(LumiereDirectionnelle);
   //var VisualisationLumiereDirectionnelle = new THREE.CameraHelper(LumiereDirectionnelle.shadow.camera)
   //scene.add(VisualisationLumiereDirectionnelle);
-  
+
 }
