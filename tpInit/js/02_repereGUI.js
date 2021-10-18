@@ -18,6 +18,26 @@ function init(){
  //plans contenant deux axes du repere
  //planRepere(scene);
 
+
+ //essai animation
+
+ var theta = 0;
+ var pasTheta = 0.25;
+ var h = 0.5;
+ var r = 1.5;
+ var phi = 0;
+ var pasPhiRot = 0.05;
+ var sphereGeom = new THREE.SphereGeometry(2, 20, 20);
+
+ let spherePhong = new THREE.Mesh(sphereGeom, new THREE.MeshBasicMaterial(0xD3D3D3));
+ scene.add(spherePhong);
+
+
+
+
+
+ //fin essai anim
+
  Bleu = new THREE.MeshPhongMaterial({
    color: "#0000FF",
    opacity: 0.5,
@@ -108,9 +128,17 @@ function init(){
  function reAffichage() {
   setTimeout(function () {
    posCamera();//sphereGeom1.parameters.radius = 2;//
+   if(spherePhong) scene.remove(spherePhong);
+   theta += pasTheta;
+   phi += pasPhiRot;
+   spherePhong.position.set(r*Math.cos(phi), r*Math.sin(phi), sphereGeom.parameters.radius + h*(1-Math.cos(theta)));
+   scene.add(spherePhong);
+   reAffichage();
   }, 200);// fin setTimeout(function ()
     // render avec requestAnimationFrame
   rendu.render(scene, camera);
+
+
  }// fin fonction reAffichage()
 
 
