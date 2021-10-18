@@ -48,49 +48,51 @@ function initPierre(scene,material){
 
   //affichage de la poignée dans la scene
   mesh_poigne = new THREE.Mesh(poigne,material);
-  mesh_poigne.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
+  //mesh_poigne.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(mesh_poigne);
 
-  //*************************************
-  //
-  // A REMPLACER PAR UNE LATHE
-  //
-  //*************************************
+  //lathe intermédiaire
+  pi1 = new THREE.Vector3(1.5,-0.75,0);
+  pi3 = new THREE.Vector3(1.5,-1.25,0);
+  pi2 = new THREE.Vector3((pi1.x+pi3.x)/2,(pi1.y+pi3.y)/2,(pi1.z+pi3.z)/2);
+  let lathei = latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[pi1,pi2,pi3],material.color,material.opacity,material.transparent);
+  //lathei.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
+  pierre.add(lathei);
 
   //cylindre de la pierre
-  let cylindre_milieu = new THREE.CylinderGeometry(1.5,1.5,0.5,nbFacesCylindres*2);
-  cylindre_milieu.translate(0,-1,0);
-  let mesh_cylindre_milieu = new THREE.Mesh(cylindre_milieu,material);
-  mesh_cylindre_milieu.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
-  pierre.add(mesh_cylindre_milieu);
+  //let cylindre_milieu = new THREE.CylinderGeometry(1.5,1.5,0.5,nbFacesCylindres*2);
+  //cylindre_milieu.translate(0,-1,0);
+  //let mesh_cylindre_milieu = new THREE.Mesh(cylindre_milieu,material);
+  //mesh_cylindre_milieu.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
+  //pierre.add(mesh_cylindre_milieu);
 
   //première lathe
   let p1 = poigne_base.vertices[nbFacesCylindres*2+nbFacesCylindres/2];
-  let p3 = cylindre_milieu.vertices[nbFacesCylindres/2];
+  let p3 = pi1
   let p2 = new THREE.Vector3(p3.x,p1.y,0);
   let lathe1 = latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p1,p2,p3],0x999999,1,false)
-  lathe1.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
+  //lathe1.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(lathe1);
 
   //deuxième lathe
   let hauteur = Math.abs(p3.y-p1.y);
-  let p4 = cylindre_milieu.vertices[nbFacesCylindres*2+nbFacesCylindres/2];
-  let p5 = cylindre_milieu.vertices[nbFacesCylindres*2+nbFacesCylindres/2].clone();
+  let p4 = pi3
+  let p5 = p4.clone();
   p5.y = p5.y-hauteur;
   let p6 = new THREE.Vector3(0,p5.y,0);
   let lathe2 = latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p4,p5,p6],0x999999,1,false);
-  lathe2.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
+  //lathe2.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(lathe2);
 
   //diamètre max de la pierre = plus grand cylindre entre lathes.
   //diamètre max réel = 0.3m donc 0.1*diamètre max de la pierre.
-  pierre.scale.x = 0.1;
-  pierre.scale.y = 0.1;
-  pierre.scale.z = 0.1;
+  //pierre.scale.x = 0.1;
+  //pierre.scale.y = 0.1;
+  //pierre.scale.z = 0.1;
 
   //mise en position de la pierre
-  pierre.position.z = 0.175;
-  pierre.rotateZ(Math.PI);
+  //pierre.position.z = 0.175;
+  //pierre.rotateZ(Math.PI);
 
   //affichage des axes locaux
   //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(1,0,0)),0xFF0000);
