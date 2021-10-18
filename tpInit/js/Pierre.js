@@ -54,19 +54,23 @@ function initPierre(scene,material){
 
   //affichage de la poignée dans la scene
   mesh_poigne = new THREE.Mesh(poigne,material);
+  mesh_poigne.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(mesh_poigne);
 
   //cylindre de la pierre
   let cylindre_milieu = new THREE.CylinderGeometry(1.5,1.5,0.5,nbFacesCylindres*2);
   cylindre_milieu.translate(0,-1,0);
   let mesh_cylindre_milieu = new THREE.Mesh(cylindre_milieu,material);
+  mesh_cylindre_milieu.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(mesh_cylindre_milieu);
 
   //première lathe
   let p1 = poigne_base.vertices[nbFacesCylindres*2+nbFacesCylindres/2];
   let p3 = cylindre_milieu.vertices[nbFacesCylindres/2];
   let p2 = new THREE.Vector3(p3.x,p1.y,0);
-  pierre.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p1,p2,p3],0x999999,1,false));
+  let lathe1 = latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p1,p2,p3],0x999999,1,false)
+  lathe1.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
+  pierre.add(lathe1);
 
   //deuxième lathe
   let hauteur = Math.abs(p3.y-p1.y);
@@ -74,7 +78,9 @@ function initPierre(scene,material){
   let p5 = cylindre_milieu.vertices[nbFacesCylindres*2+nbFacesCylindres/2].clone();
   p5.y = p5.y-hauteur;
   let p6 = new THREE.Vector3(0,p5.y,0);
-  pierre.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p4,p5,p6],0x999999,1,false));
+  let lathe2 = latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p4,p5,p6],0x999999,1,false);
+  lathe2.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
+  pierre.add(lathe2);
 
 
   //diamètre max de la pierre = plus grand cylindre entre lathes.
@@ -84,8 +90,12 @@ function initPierre(scene,material){
   pierre.scale.z = 0.1;
 
   //mise en position de la pierre
-  pierre.rotateX(Math.PI/2);
   pierre.position.z = 0.175;
+  pierre.rotateZ(Math.PI);
+
+  //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(1,0,0)),0xFF0000);
+  //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(0,1,0)),0x00FF00);
+  //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(0,0,1)),0x0000FF);
 
   return pierre;
 }
