@@ -64,5 +64,5 @@ function initPiste(scene) {
    piste.add(larg2Mesh);
   //bordures piste en y = -5.03 et 36,94
 
-  scene.add(piste);
+  return piste;
 }
