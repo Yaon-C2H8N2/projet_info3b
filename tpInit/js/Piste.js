@@ -23,6 +23,10 @@ function initPiste(scene) {
   ptDepart2 = new THREE.Vector3(2.25,0,0);
   segment(scene, ptDepart1, ptDepart2);
 
+  zone_maison1 = new THREE.Vector3(-2.25,30.31,0);
+  zone_maison2 = new THREE.Vector3(2.25,30.31,0);
+  segment(scene, zone_maison1, zone_maison2);
+
   piste = new THREE.Group();
 
   //piste.add(mesh_fond);
@@ -62,7 +66,7 @@ function initPiste(scene) {
    piste.add(long2Mesh);
    piste.add(larg1Mesh);
    piste.add(larg2Mesh);
-  //bordures piste en y = -5.03 et 36,94
+  //bordures piste en y = -5.03 et 36,97
 
   return piste;
 }
