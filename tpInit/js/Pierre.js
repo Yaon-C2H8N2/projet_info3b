@@ -1,4 +1,4 @@
-function initPierre(scene,material){
+function initPierre(material){
   //traçage des différents cylindres
   let pierre = new THREE.Group();
   let nbFacesCylindres = 10;
