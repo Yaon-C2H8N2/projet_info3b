@@ -65,6 +65,9 @@ function init(){
  scene.add(p2_sphere);
  scene.add(p3_sphere);
 
+ bezier = traceBezier([p1,p2,p3],10);
+ scene.add(bezier);
+
 
  //********************************************************
  //
@@ -74,17 +77,19 @@ function init(){
  var gui = new dat.GUI();//interface graphique utilisateur
   // ajout du menu dans le GUI
  let menuGUI = new function () {
-   this.cameraxPos = camera.position.x;
-   this.camerayPos = camera.position.y;
-   this.camerazPos = camera.position.z;
-   this.cameraZoom = 1;
+   this.cameraxPos = 0;
+   this.camerayPos = -6;
+   this.camerazPos = 6;
+   this.cameraZoom = 6;
    //pb avec camera lockAt
-   this.cameraxDir = 0;//camera.getWorldDirection().x;
-   this.camerayDir = 0;//camera.getWorldDirection().y;
-   this.camerazDir = 0;//camera.getWorldDirection().z;
+   this.cameraxDir = 0;
+   this.camerayDir = 6;
+   this.camerazDir = 6;
 
    this.P3x = p3.x;
    this.P3y = p3.y-33.31;
+   this.P2x = p2.x;
+   this.P2y = p2.y-16.655;
    //pour actualiser dans la scene
    this.actualisation = function () {
     posCamera();
@@ -96,17 +101,41 @@ function init(){
  ajoutCameraGui(gui,menuGUI,camera);
  //ajout du menu pour actualiser l'affichage
  gui.add(menuGUI, "actualisation");
- gui.add(menuGUI, "P3x",-1.95,1.95).onChange(function(){
+ gui.add(menuGUI, "P3x",-2.25,2.25).onChange(function(){
    scene.remove(p3_sphere);
+   scene.remove(bezier);
    p3.x = menuGUI.P3x;
+   bezier = traceBezier([p1,p2,p3],10);
    p3_sphere = test_point(p3);
    scene.add(p3_sphere);
+   scene.add(bezier);
  })
- gui.add(menuGUI, "P3y",-1.95,1.95).onChange(function(){
-   p3.y = menuGUI.P3y+33.31;
+ gui.add(menuGUI, "P3y",-3,3.66).onChange(function(){
    scene.remove(p3_sphere);
+   scene.remove(bezier);
+   p3.y = menuGUI.P3y+33.31;
+   bezier = traceBezier([p1,p2,p3],10);
    p3_sphere = test_point(p3);
    scene.add(p3_sphere);
+   scene.add(bezier);
+ })
+ gui.add(menuGUI, "P2x",-2.25,2.25).onChange(function(){
+   scene.remove(p2_sphere);
+   scene.remove(bezier);
+   p2.x = menuGUI.P2x;
+   bezier = traceBezier([p1,p2,p3],10);
+   p2_sphere = test_point(p2);
+   scene.add(p2_sphere);
+   scene.add(bezier);
+ })
+ gui.add(menuGUI, "P2y",-3,13.66).onChange(function(){
+   scene.remove(p2_sphere);
+   scene.remove(bezier);
+   p2.y = menuGUI.P2y+16.655;
+   bezier = traceBezier([p1,p2,p3],10);
+   p2_sphere = test_point(p2);
+   scene.add(p2_sphere);
+   scene.add(bezier);
  })
  menuGUI.actualisation();
  //********************************************************
