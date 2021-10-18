@@ -7,13 +7,13 @@ function initPiste(scene) {
   //scene.add(mesh_fond);
 
   rond_rouge = new THREE.RingGeometry( 1.88, 1.22, 20 );
-  rond_rouge.translate(0,17.34,0.01);
+  rond_rouge.translate(0,33.31,0.01);
   materialRouge = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide} );
   mesh_rond_rouge = new THREE.Mesh(rond_rouge, materialRouge);
   //scene.add(mesh_rond_rouge);
 
   rond_bleu = new THREE.RingGeometry(0.66, 0.15, 20);
-  rond_bleu.translate(0,17.34,0.01);
+  rond_bleu.translate(0,33.31,0.01);
   materialBleu = new THREE.MeshBasicMaterial( {color: 0x0000ff, side: THREE.DoubleSide} );
   mesh_rond_bleu = new THREE.Mesh(rond_bleu, materialBleu);
   //scene.add(mesh_rond_bleu);
@@ -29,7 +29,7 @@ function initPiste(scene) {
   piste.add(mesh_rond_rouge);
   piste.add(mesh_rond_bleu);
 
-  piste.position.y = 15.97;
+  //piste.position.y = 15.97;
 
 
   materialGris = new THREE.MeshBasicMaterial( {color: 0xd3d3d3, side: THREE.DoubleSide} );
@@ -57,13 +57,11 @@ function initPiste(scene) {
    larg2Mesh = new THREE.Mesh(larg2, materialGris);
 
 
-   contour = new THREE.Group();
-   contour.add(long1Mesh);
-   contour.add(long2Mesh);
-   contour.add(larg1Mesh);
-   contour.add(larg2Mesh);
-   scene.add(contour
-   );
+
+   piste.add(long1Mesh);
+   piste.add(long2Mesh);
+   piste.add(larg1Mesh);
+   piste.add(larg2Mesh);
   //bordures piste en y = -5.03 et 36,94
 
   scene.add(piste);
