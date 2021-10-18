@@ -13,7 +13,7 @@ function init(){
  rendu.setSize(window.innerWidth*.9, window.innerHeight*.9);
  cameraLumiere(scene,camera);
  lumiere(scene);
- repere(scene);
+ //repere(scene);
  controls = new THREE.TrackballControls(camera);
  //plans contenant deux axes du repere
  //planRepere(scene);
