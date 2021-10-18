@@ -44,8 +44,13 @@ function init(){
 
  pierre_rouge = initPierre(scene,Rouge);
  scene.add(pierre_rouge);
- initPiste(scene);
- //initBalai(scene);
+ piste = initPiste(scene);
+ scene.add(piste);
+
+ p1 = new THREE.Vector3(pierre_rouge.getWorldPosition().x,pierre_rouge.getWorldPosition().y,0);
+ tracePoint(scene,p1);
+ p2 = new THREE.Vector3(0,33.31,0);
+ tracePoint(scene,p2);
 
  //********************************************************
  //
