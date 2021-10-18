@@ -42,6 +42,10 @@ function init(){
    side: THREE.DoubleSide,
  })
 
+ vitesse = 200;
+ tir = 0;
+ pasTir = 1;
+
  function test_point(A,coul){
    sphereGeom = new THREE.SphereGeometry(0.05,10,10);
    if(coul == undefined)mesh = new THREE.Mesh(sphereGeom,new THREE.MeshBasicMaterial({color: 0x999999}));
@@ -52,20 +56,20 @@ function init(){
    return mesh;
  }
 
- pierre_rouge = initPierre(scene,Rouge);
- scene.add(pierre_rouge);
+ pierre_courante = initPierre(Rouge);
+ scene.add(pierre_courante);
  piste = initPiste(scene);
  scene.add(piste);
 
- p1 = new THREE.Vector3(pierre_rouge.getWorldPosition().x,pierre_rouge.getWorldPosition().y,0);
+ p1 = new THREE.Vector3(0,0,0);
  p3 = new THREE.Vector3(0,33.31,0);
- p2 = new THREE.Vector3(0,(33.31+pierre_rouge.getWorldPosition().y)/2,0);
+ p2 = new THREE.Vector3(0,p3.y/2,0);
  p2_sphere = test_point(p2);
  p3_sphere = test_point(p3);
  scene.add(p2_sphere);
  scene.add(p3_sphere);
 
- bezier = traceBezier([p1,p2,p3],10);
+ bezier = traceBezier([p1,p2,p3],vitesse);
  scene.add(bezier);
 
 
@@ -90,12 +94,38 @@ function init(){
    this.P3y = p3.y-33.31;
    this.P2x = p2.x;
    this.P2y = p2.y-16.655;
+
+   this.tirPierre = function(){
+      tir_pierre(pierre_courante);
+   }
+
    //pour actualiser dans la scene
    this.actualisation = function () {
     posCamera();
     reAffichage();
    }; // fin this.actualisation
  }; // fin de la fonction menuGUI
+
+ function tir_pierre(pierre){
+  setTimeout(function(){
+   scene.remove(bezier);
+   if(tir<vitesse){
+     posCamera();
+     tir += pasTir
+     scene.remove(pierre);
+     pierre.position.y = bezier.geometry.vertices[tir].y;
+     pierre.position.x = bezier.geometry.vertices[tir].x;
+     scene.add(pierre);
+     tir_pierre(pierre);
+   }else{
+     tir = 0;
+     if(pierre_courante.children[0].material.color == Bleu.color)pierre_courante = initPierre(Rouge);
+     else pierre_courante = initPierre(Bleu);
+     scene.add(pierre_courante);
+   }
+ }, 16.6);
+  rendu.render(scene, camera);
+};
 
  // ajout de la camera dans le menu
  ajoutCameraGui(gui,menuGUI,camera);
@@ -105,38 +135,39 @@ function init(){
    scene.remove(p3_sphere);
    scene.remove(bezier);
    p3.x = menuGUI.P3x;
-   bezier = traceBezier([p1,p2,p3],10);
+   bezier = traceBezier([p1,p2,p3],vitesse);
    p3_sphere = test_point(p3);
    scene.add(p3_sphere);
    scene.add(bezier);
- })
+ });
  gui.add(menuGUI, "P3y",-3,3.66).onChange(function(){
    scene.remove(p3_sphere);
    scene.remove(bezier);
    p3.y = menuGUI.P3y+33.31;
-   bezier = traceBezier([p1,p2,p3],10);
+   bezier = traceBezier([p1,p2,p3],vitesse);
    p3_sphere = test_point(p3);
    scene.add(p3_sphere);
    scene.add(bezier);
- })
+ });
  gui.add(menuGUI, "P2x",-2.25,2.25).onChange(function(){
    scene.remove(p2_sphere);
    scene.remove(bezier);
    p2.x = menuGUI.P2x;
-   bezier = traceBezier([p1,p2,p3],10);
+   bezier = traceBezier([p1,p2,p3],vitesse);
    p2_sphere = test_point(p2);
    scene.add(p2_sphere);
    scene.add(bezier);
- })
+ });
  gui.add(menuGUI, "P2y",-3,13.66).onChange(function(){
    scene.remove(p2_sphere);
    scene.remove(bezier);
    p2.y = menuGUI.P2y+16.655;
-   bezier = traceBezier([p1,p2,p3],10);
+   bezier = traceBezier([p1,p2,p3],vitesse);
    p2_sphere = test_point(p2);
    scene.add(p2_sphere);
    scene.add(bezier);
- })
+ });
+ gui.add(menuGUI, "tirPierre");
  menuGUI.actualisation();
  //********************************************************
  //
