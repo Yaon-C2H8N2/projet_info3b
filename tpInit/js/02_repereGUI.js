@@ -44,10 +44,6 @@ function init(){
 
  pierre_rouge = initPierre(scene,Rouge);
  scene.add(pierre_rouge);
- pierre_rouge.position.y = 0.5;
- pierre_bleue = initPierre(scene,Bleu);
- pierre_bleue.position.y = -0.5;
- scene.add(pierre_bleue);
  initPiste(scene);
  //initBalai(scene);
 
