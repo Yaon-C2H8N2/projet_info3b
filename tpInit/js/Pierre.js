@@ -87,10 +87,5 @@ function initPierre(scene,material){
   pierre.position.z = 0.175;
   pierre.rotateZ(Math.PI);
 
-  //affichage des axes locaux
-  //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(1,0,0)),0xFF0000);
-  //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(0,1,0)),0x00FF00);
-  //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(0,0,1)),0x0000FF);
-
   return pierre;
 }
