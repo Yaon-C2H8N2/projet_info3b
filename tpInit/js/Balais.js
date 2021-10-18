@@ -38,6 +38,7 @@ function initBalai(scene) {
   balai.merge(mesh_poil_balai3.geometry, mesh_poil_balai3.matrix);
 
   mesh_balai = new THREE.Mesh(balai, MaterialPhong);
+  
   scene.add(mesh_balai);
 
 }
