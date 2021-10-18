@@ -18,7 +18,19 @@ function init(){
  //plans contenant deux axes du repere
  //planRepere(scene);
 
- MaterialPhong = new THREE.MeshPhongMaterial({
+ Bleu = new THREE.MeshPhongMaterial({
+   color: "#0000FF",
+   opacity: 0.5,
+   //transparent: true,
+   emissive: 0x000000,
+   //specular: "#00FFFF",
+   flatShading: true,
+   shininess: 30,
+   //wireframe: true,
+   side: THREE.DoubleSide,
+ })
+
+ Rouge = new THREE.MeshPhongMaterial({
    color: "#FF0000",
    opacity: 0.5,
    //transparent: true,
@@ -30,7 +42,11 @@ function init(){
    side: THREE.DoubleSide,
  })
 
- initPierre(scene,MaterialPhong);
+ pierre_rouge = initPierre(scene,Rouge);
+ scene.add(pierre_rouge);
+ pierre_bleue = initPierre(scene,Bleu);
+ pierre_bleue.position.y = -0.5;
+ scene.add(pierre_bleue);
  initPiste(scene);
  //initBalai(scene);
 
