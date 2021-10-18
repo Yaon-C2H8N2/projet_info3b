@@ -59,13 +59,6 @@ function initPierre(scene,material){
   lathei.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(lathei);
 
-  //cylindre de la pierre
-  //let cylindre_milieu = new THREE.CylinderGeometry(1.5,1.5,0.5,nbFacesCylindres*2);
-  //cylindre_milieu.translate(0,-1,0);
-  //let mesh_cylindre_milieu = new THREE.Mesh(cylindre_milieu,material);
-  //mesh_cylindre_milieu.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
-  //pierre.add(mesh_cylindre_milieu);
-
   //première lathe
   let p1 = poigne_base.vertices[nbFacesCylindres*2+nbFacesCylindres/2];
   let p3 = pi1
