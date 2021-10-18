@@ -24,16 +24,13 @@ function init(){
  var theta = 0;
  var pasTheta = 0.25;
  var h = 0.5;
- var r = 1.5;
+ var r = 0.5;
  var phi = 0;
  var pasPhiRot = 0.05;
- var sphereGeom = new THREE.SphereGeometry(2, 20, 20);
+ //var sphereGeom = new THREE.SphereGeometry(2, 20, 20);
 
- let spherePhong = new THREE.Mesh(sphereGeom, new THREE.MeshBasicMaterial(0xD3D3D3));
- scene.add(spherePhong);
-
-
-
+ //let spherePhong = new THREE.Mesh(sphereGeom, new THREE.MeshBasicMaterial(0xD3D3D3));
+ //scene.add(spherePhong);
 
 
  //fin essai anim
@@ -128,13 +125,13 @@ function init(){
  function reAffichage() {
   setTimeout(function () {
    posCamera();//sphereGeom1.parameters.radius = 2;//
-   if(spherePhong) scene.remove(spherePhong);
+   if(pierre_rouge) scene.remove(pierre_rouge);
    theta += pasTheta;
    phi += pasPhiRot;
-   spherePhong.position.set(r*Math.cos(phi), r*Math.sin(phi), sphereGeom.parameters.radius + h*(1-Math.cos(theta)));
-   scene.add(spherePhong);
+   pierre_rouge.position.set(r*Math.cos(phi), r*Math.sin(phi), sphereGeom.parameters.radius + h*(1-Math.cos(theta)));
+   scene.add(pierre_rouge);
    reAffichage();
-  }, 200);// fin setTimeout(function ()
+ }, 16.6);// fin setTimeout(function ()
     // render avec requestAnimationFrame
   rendu.render(scene, camera);
 
