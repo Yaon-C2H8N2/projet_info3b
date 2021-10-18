@@ -1,14 +1,11 @@
 function initPierre(scene,material){
   //traçage des différents cylindres
   let pierre = new THREE.Group();
-
   let nbFacesCylindres = 10;
   let poigne_horizontale = new THREE.CylinderGeometry(0.2,0.2,1,nbFacesCylindres);
   let mesh_poigne_horizontale = new THREE.Mesh(poigne_horizontale,material);
-
   let poigne_verticale = new THREE.CylinderGeometry(0.2,0.2,0.5,nbFacesCylindres);
   let mesh_poigne_verticale = new THREE.Mesh(poigne_verticale,material);
-
   let poigne_base = new THREE.CylinderGeometry(0.8,0.8,0.2,nbFacesCylindres*2);
   let mesh_poigne_base = new THREE.Mesh(poigne_base,material);
 
@@ -19,13 +16,10 @@ function initPierre(scene,material){
 
   //merge des cylindres
   let poigne = new THREE.Geometry();
-
   mesh_poigne_base.updateMatrix();
   poigne.merge(mesh_poigne_base.geometry, mesh_poigne_base.matrix);
-
   mesh_poigne_verticale.updateMatrix();
   poigne.merge(mesh_poigne_verticale.geometry, mesh_poigne_verticale.matrix);
-
   mesh_poigne_horizontale.updateMatrix();
   poigne.merge(mesh_poigne_horizontale.geometry, mesh_poigne_horizontale.matrix);
 
@@ -82,7 +76,6 @@ function initPierre(scene,material){
   lathe2.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(lathe2);
 
-
   //diamètre max de la pierre = plus grand cylindre entre lathes.
   //diamètre max réel = 0.3m donc 0.1*diamètre max de la pierre.
   pierre.scale.x = 0.1;
@@ -93,6 +86,7 @@ function initPierre(scene,material){
   pierre.position.z = 0.175;
   pierre.rotateZ(Math.PI);
 
+  //affichage des axes locaux
   //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(1,0,0)),0xFF0000);
   //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(0,1,0)),0x00FF00);
   //vecteur(pierre,pierre.localToWorld(new THREE.Vector3(0,0,0)),pierre.localToWorld(new THREE.Vector3(0,0,1)),0x0000FF);
