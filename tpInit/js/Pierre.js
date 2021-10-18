@@ -76,9 +76,14 @@ function initPierre(scene,material){
   let p6 = new THREE.Vector3(0,p5.y,0);
   pierre.add(latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[p4,p5,p6],0x999999,1,false));
 
+
+  //diamètre max de la pierre = plus grand cylindre entre lathes.
+  //diamètre max réel = 0.3m donc 0.1*diamètre max de la pierre.
   pierre.scale.x = 0.1;
   pierre.scale.y = 0.1;
   pierre.scale.z = 0.1;
+
+  //mise en position de la pierre
   pierre.rotateX(Math.PI/2);
   pierre.position.z = 0.175;
 
