@@ -89,3 +89,39 @@ function initPierre(material){
 
   return pierre;
 }
+
+function tir_pierre(scene,camera,pierre,bezier){
+  setTimeout(function(){
+    scene.remove(bezier);
+    if(tir<vitesse && !checkCollision()){
+      //progression du tir
+      tir += pasTir;
+      scene.remove(pierre);
+      pierre.position.y = bezier.geometry.vertices[tir].y;
+      pierre.position.x = bezier.geometry.vertices[tir].x;
+      scene.add(pierre);
+      camera.position.set(pierre.position.x,pierre.position.y-5,pierre.position.z+1);
+      camera.lookAt(pierre.position.x,pierre.position.y,pierre.position.z);
+      tir_pierre(scene,camera,pierre,bezier);
+    }else{
+      //fin du tir
+      tir = 0;
+      camera.position.set(0*6,-6*6,6*6);
+      camera.lookAt(0,6,6);
+      if(pierre_courante.children[0].material.color == Bleu.color)pierre_courante = initPierre(Rouge);
+      else pierre_courante = initPierre(Bleu);
+      scene.add(pierre_courante);
+    }
+  }, 16.6);
+};
+
+function checkCollision(){
+  for(i=0;i<tabPierres.length;i++){
+    for(j=0;j<tabPierres.length;j++){
+      if(i!=j && calculDistance(tabPierres[i].position,tabPierres[j].position)<=0.3){
+        return true
+      }
+    }
+  }
+  return false;
+}
