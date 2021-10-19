@@ -48,14 +48,22 @@ function vecteur(MaScene,A,B,CoulHexa,longCone,RayonCone){
  MaScene.add( new THREE.ArrowHelper( vecAB, A, B.distanceTo(A), CoulHexa, longCone, RayonCone ));
 }
 
-function tracePoint(MaScene,A,coul){
+function point(A,coul){
   sphereGeom = new THREE.SphereGeometry(0.05,10,10);
   if(coul == undefined)mesh = new THREE.Mesh(sphereGeom,new THREE.MeshBasicMaterial({color: 0x999999}));
   else mesh = new THREE.Mesh(sphereGeom,new THREE.MeshBasicMaterial({color: coul}));
   mesh.position.x = A.x;
   mesh.position.y = A.y;
   mesh.position.z = A.z;
-  MaScene.add(mesh)
+  return mesh;
+}
+
+function tracePoint(MaScene,A,coul){
+  MaScene.add(point(A,coul));
+}
+
+function calculDistance(A,B){
+  return Math.sqrt(Math.pow(B.x-A.x,2)+Math.pow(B.y-A.y,2));
 }
 
 function segment(MaScene, A, B) {
