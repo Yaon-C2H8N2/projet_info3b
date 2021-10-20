@@ -119,7 +119,7 @@ function checkCollision(){
   for(i=0;i<tabPierres.length;i++){
     for(j=0;j<tabPierres.length;j++){
       if(i!=j && calculDistance(tabPierres[i].position,tabPierres[j].position)<=0.3){
-        return true
+        return true;
       }
     }
   }
