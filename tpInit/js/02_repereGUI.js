@@ -87,6 +87,7 @@ tabPierres = [];
 
    this.tirPierre = function(){
       tabPierres.push(pierre_courante);
+      console.log(tabPierres);
       tir_pierre(scene,camera,pierre_courante,bezier);
    }
 
