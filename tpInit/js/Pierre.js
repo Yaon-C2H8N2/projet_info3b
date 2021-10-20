@@ -93,7 +93,7 @@ function initPierre(material){
 function tir_pierre(scene,camera,pierre,bezier){
   setTimeout(function(){
     scene.remove(bezier);
-    if(tir<vitesse && !checkCollision()){
+    if(tir<vitesse && !checkCollisionPierre() && !checkCollisionBords()){
       //progression du tir
       tir += pasTir;
       scene.remove(pierre);
@@ -105,17 +105,19 @@ function tir_pierre(scene,camera,pierre,bezier){
       tir_pierre(scene,camera,pierre,bezier);
     }else{
       //fin du tir
+      console.log("fin du tir");
       tir = 0;
+      if(!checkCollisionBords() && checkCollisionPierre()){
+        nouvellePierre();
+      }
       camera.position.set(0*6,-6*6,6*6);
       camera.lookAt(0,6,6);
-      if(pierre_courante.children[0].material.color == Bleu.color)pierre_courante = initPierre(Rouge);
-      else pierre_courante = initPierre(Bleu);
-      scene.add(pierre_courante);
+      nouvellePierre();
     }
   }, 16.6);
 };
 
-function checkCollision(){
+function checkCollisionPierre(){
   for(i=0;i<tabPierres.length;i++){
     for(j=0;j<tabPierres.length;j++){
       if(i!=j && calculDistance(tabPierres[i].position,tabPierres[j].position)<=0.3){
@@ -124,4 +126,24 @@ function checkCollision(){
     }
   }
   return false;
+}
+
+function checkCollisionBords(){
+  if(pierre_courante.position.x < -2.10 || pierre_courante.position.x > 2.10){
+    scene.remove(tabPierres.pop());
+    nouvellePierre();
+    return true;
+  }
+  else if(pierre_courante.position.y > 36.82){
+    scene.remove(tabPierres.pop());
+    nouvellePierre();
+    return true;
+  }else return false;
+}
+
+
+function nouvellePierre(){
+  if(pierre_courante.children[0].material.color == Bleu.color)pierre_courante = initPierre(Rouge);
+  else pierre_courante = initPierre(Bleu);
+  scene.add(pierre_courante);
 }
