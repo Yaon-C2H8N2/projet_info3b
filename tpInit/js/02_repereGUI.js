@@ -5,7 +5,7 @@ function init(){
  // creation de rendu et de la taille
  let rendu = new THREE.WebGLRenderer({ antialias: true });
  rendu.shadowMap.enabled = true;
- let scene = new THREE.Scene();
+ scene = new THREE.Scene();
  let camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 0.1, 100);
  rendu.shadowMap.enabled = true;
  rendu.setClearColor(new THREE.Color(0xFFFFFF));
@@ -83,7 +83,16 @@ tabPierres = [];
 
    this.tirPierre = function(){
       tabPierres.push(pierre_courante);
-      tir_pierre(scene,camera,pierre_courante,2.5,p0.clone(),p1.clone(),p2.clone());
+      let pasTir = (2.5/calculDistance(p0,p2))/16.6;
+      tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone());
+      setTimeout(function(){
+        if(pierre_courante.children[0].material.color.r == 1){
+          pierre_courante = initPierre(Bleu);
+        }else{
+          pierre_courante = initPierre(Rouge);
+        }
+        scene.add(pierre_courante);
+      },1500);
    }
 
    //pour actualiser dans la scene
