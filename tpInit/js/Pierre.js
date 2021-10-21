@@ -91,64 +91,75 @@ function initPierre(material){
 }
 
 tir = 0;
-function tir_pierre(scene,camera,pierre,vitesse,p0,p1,p2){
+function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2){
   setTimeout(function(){
-    pasTir = (vitesse/calculDistance(p0,p2))/16.6;
-    if(tir<=1 && !checkCollisionPierre() && !checkCollisionBords(scene)){
+    if(tir<=1 && !checkCollisionPierre(pierre) && !checkCollisionBords(pierre)){
       //progression du tir
-      scene.remove(pierre);
       pierre.position.y = om(tir,p0,p1,p2).y;
       pierre.position.x = om(tir,p0,p1,p2).x;
       tir += pasTir;
       console.log(pasTir*calculDistance(p0,p2)*16.6);
-      scene.add(pierre);
       //positionnement de la caméra au dessus de la maison vers la fin du tir
       if(pierre.position.y<25){
         camera.position.set(pierre.position.x,pierre.position.y-5,pierre.position.z+1);
         camera.lookAt(pierre.position.x,pierre.position.y,pierre.position.z);
-        //décélération
       }else{
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }
-      tir_pierre(scene,camera,pierre,vitesse,p0,p1,p2);
+      tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2);
     }else{
       //fin du tir
       tir = 0;
-      //si collision suppression de la pierre et apparition d'une nouvelle
-      if(!checkCollisionBords(scene) && checkCollisionPierre()){
-        //pierre de l'équipe adverse
-      }
       //retour caméra position d'origine
       setTimeout(function(){
         camera.position.set(0*6,-6*6,6*6);
         camera.lookAt(0,6,6);
       },1500);
-      //appartition de la pierre de l'équipe adverse
     }
   }, 16.6);
 };
 
-function checkCollisionPierre(){
+function checkCollisionPierre(pierre){
   for(i=0;i<tabPierres.length;i++){
-    for(j=0;j<tabPierres.length;j++){
-      if(i!=j && calculDistance(tabPierres[i].position,tabPierres[j].position)<=0.3){
-        return true;
-      }
+    if(pierre != tabPierres[i] && calculDistance(tabPierres[i].position,pierre.position)<=0.3){
+      console.log("Collision entre pierre courante et pierre "+i);
+      let x = tabPierres[i].position.x-pierre.position.x;
+      let y = tabPierres[i].position.y-pierre.position.y;
+      let z = tabPierres[i].position.z-pierre.position.z;
+      let vec =  new THREE.Vector3(x,y,z);
+      rebond(0.3,tabPierres[i].position,vec,tabPierres[i]);
+      return true;
     }
   }
   return false;
 }
 
-function checkCollisionBords(scene){
-  if(pierre_courante.position.x < -2.10 || pierre_courante.position.x > 2.10){
-    scene.remove(tabPierres.pop());
-    //pierre de l'équipe adverse
+function checkCollisionBords(pierre){
+  if(pierre.position.x < -2.10 || pierre.position.x > 2.10){
+    pierre.parent.remove(pierre);
+    tabPierres.splice(tabPierres.indexOf(pierre),1);
     return true;
   }
-  else if(pierre_courante.position.y > 36.82){
-    scene.remove(tabPierres.pop());
-    //pierre de l'équipe adverse
+  else if(pierre.position.y > 36.82){
+    pierre.parent.remove(pierre);
+    tabPierres.splice(tabPierres.indexOf(pierre),1);
     return true;
   }else return false;
+}
+
+function rebond(vitesse,origine,vecteur,pierre){
+  setTimeout(function(){
+    if(vitesse>0.001 && !checkCollisionBords(pierre)){
+      //console.log(vitesse);
+      console.log(pierre.position);
+      pierre.position.x = origine.x + vitesse*vecteur.x;
+      pierre.position.y = origine.y + vitesse*vecteur.y;
+      checkCollisionPierre(pierre);
+      vitesse = vitesse*0.9;
+      rebond(vitesse,origine,vecteur,pierre);
+    }else{
+      //fin du rebond
+    }
+  },16.6);
 }
