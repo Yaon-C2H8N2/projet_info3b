@@ -2,7 +2,7 @@ const borneVue=6;//amplitude de deplacement de la camera
 
 function init(){
  var stats = initStats();
-    // creation de rendu et de la taille
+ // creation de rendu et de la taille
  let rendu = new THREE.WebGLRenderer({ antialias: true });
  rendu.shadowMap.enabled = true;
  let scene = new THREE.Scene();
@@ -83,8 +83,7 @@ tabPierres = [];
 
    this.tirPierre = function(){
       tabPierres.push(pierre_courante);
-      console.log(tabPierres);
-      tir_pierre(scene,camera,pierre_courante,p0.clone(),p1.clone(),p2.clone());
+      tir_pierre(scene,camera,pierre_courante,2.5,p0.clone(),p1.clone(),p2.clone());
    }
 
    //pour actualiser dans la scene
@@ -125,7 +124,7 @@ tabPierres = [];
    scene.add(p2_sphere);
    scene.add(bezier);
  });
- gui.add(menuGUI, "P1y",-3,13.66).onChange(function(){
+ gui.add(menuGUI, "P1y",-3,12.995).onChange(function(){
    scene.remove(p2_sphere);
    scene.remove(bezier);
    p1.y = menuGUI.P1y+16.655;
