@@ -100,18 +100,29 @@ function tir_pierre(scene,camera,pierre,bezier){
       pierre.position.y = bezier.geometry.vertices[tir].y;
       pierre.position.x = bezier.geometry.vertices[tir].x;
       scene.add(pierre);
-      camera.position.set(pierre.position.x,pierre.position.y-5,pierre.position.z+1);
-      camera.lookAt(pierre.position.x,pierre.position.y,pierre.position.z);
+      //positionnement de la caméra au dessus de la maison vers la fin du tir
+      if(pierre.position.y<25){
+        camera.position.set(pierre.position.x,pierre.position.y-5,pierre.position.z+1);
+        camera.lookAt(pierre.position.x,pierre.position.y,pierre.position.z);
+      }else{
+        camera.position.set(0,33.31,25);
+        camera.lookAt(0,33.31,0);
+      }
       tir_pierre(scene,camera,pierre,bezier);
     }else{
       //fin du tir
       console.log("fin du tir");
       tir = 0;
+      //si collision suppression de la pierre et apparition d'une nouvelle
       if(!checkCollisionBords() && checkCollisionPierre()){
         nouvellePierre();
       }
-      camera.position.set(0*6,-6*6,6*6);
-      camera.lookAt(0,6,6);
+      //retour caméra position d'origine
+      setTimeout(function(){
+        camera.position.set(0*6,-6*6,6*6);
+        camera.lookAt(0,6,6);
+      },1500);
+      //appartition de la pierre de l'équipe adverse
       nouvellePierre();
     }
   }, 16.6);
@@ -140,7 +151,6 @@ function checkCollisionBords(){
     return true;
   }else return false;
 }
-
 
 function nouvellePierre(){
   if(pierre_courante.children[0].material.color == Bleu.color)pierre_courante = initPierre(Rouge);
