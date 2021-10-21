@@ -42,8 +42,8 @@ function init(){
  })
 
  tabPierres = []; //trouver un moyen d'en faire une variable locale
-
- pierre_courante = initPierre(Rouge); //trouver un moyen d'en faire une variable locale
+ let tirEnCours = false;
+ let pierre_courante = initPierre(Rouge);
  scene.add(pierre_courante);
  let piste = initPiste(scene);
  scene.add(piste);
@@ -92,19 +92,23 @@ function init(){
    }
 
    this.tirPierre = function(){
-      tabPierres.push(pierre_courante);
-      let pasTir = (2.5/calculDistance(p0,p2))/16.6;
-      tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone());
-      //verrouiller menu GUI
-      setTimeout(function(){
-        if(pierre_courante.children[0].material.color.r == 1){
-          pierre_courante = initPierre(Bleu);
-        }else{
-          pierre_courante = initPierre(Rouge);
-        }
-        scene.add(pierre_courante);
-        //deverouiller menu GUI
-      },12000);
+      if(tirEnCours == false){
+        tabPierres.push(pierre_courante);
+        let pasTir = (2.5/calculDistance(p0,p2))/16.6;
+        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone());
+        tirEnCours = true;
+        //verrouiller menu GUI
+        setTimeout(function(){
+          if(pierre_courante.children[0].material.color.r == 1){
+            pierre_courante = initPierre(Bleu);
+          }else{
+            pierre_courante = initPierre(Rouge);
+          }
+          scene.add(pierre_courante);
+          //deverouiller menu GUI
+          tirEnCours = false;
+        },12000);
+      }
    }
 
    //pour actualiser dans la scene
@@ -115,9 +119,9 @@ function init(){
  }; // fin de la fonction menuGUI
 
  // ajout de la camera dans le menu
- ajoutCameraGui(gui,menuGUI,camera);
+ //ajoutCameraGui(gui,menuGUI,camera);
  //ajout du menu pour actualiser l'affichage
- gui.add(menuGUI, "actualisation");
+ //gui.add(menuGUI, "actualisation");
  gui.add(menuGUI, "P2x",-2.25,2.25).onChange(function(){
    scene.remove(p3_sphere);
    scene.remove(bezier);
