@@ -81,10 +81,21 @@ tabPierres = [];
    this.P1x = p1.x;
    this.P1y = p1.y-16.655;
 
+   this.vueMaison = function(){
+     if(camera.position.y != 33.31){
+       camera.position.set(0,33.31,25);
+       camera.lookAt(0,33.31,0);
+     }else{
+       camera.position.set(0*6,-6*6,6*6);
+       camera.lookAt(0,6,6);
+     }
+   }
+
    this.tirPierre = function(){
       tabPierres.push(pierre_courante);
       let pasTir = (2.5/calculDistance(p0,p2))/16.6;
       tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone());
+      //verrouiller menu GUI
       setTimeout(function(){
         if(pierre_courante.children[0].material.color.r == 1){
           pierre_courante = initPierre(Bleu);
@@ -92,7 +103,8 @@ tabPierres = [];
           pierre_courante = initPierre(Rouge);
         }
         scene.add(pierre_courante);
-      },1500);
+        //deverouiller menu GUI
+      },14000);
    }
 
    //pour actualiser dans la scene
@@ -142,6 +154,7 @@ tabPierres = [];
    scene.add(p2_sphere);
    scene.add(bezier);
  });
+ gui.add(menuGUI, "vueMaison");
  gui.add(menuGUI, "tirPierre");
  menuGUI.actualisation();
  //********************************************************
