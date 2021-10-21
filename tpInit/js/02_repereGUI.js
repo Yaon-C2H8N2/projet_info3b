@@ -111,7 +111,7 @@ tabPierres = [];
    scene.add(p3_sphere);
    scene.add(bezier);
  });
- gui.add(menuGUI, "P3y",-3,3.66).onChange(function(){
+ gui.add(menuGUI, "P3y",-3.66,3.66).onChange(function(){
    scene.remove(p3_sphere);
    scene.remove(bezier);
    p3.y = menuGUI.P3y+33.31;
