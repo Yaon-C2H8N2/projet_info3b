@@ -91,33 +91,33 @@ function initPierre(material){
 }
 
 tir = 0;
-pasTir = 0.004;
-function tir_pierre(scene,camera,pierre,p0,p1,p2){
+function tir_pierre(scene,camera,pierre,vitesse,p0,p1,p2){
   setTimeout(function(){
-    if(tir<1+pasTir && !checkCollisionPierre() && !checkCollisionBords()){
+    pasTir = (vitesse/calculDistance(p0,p2))/16.6;
+    if(tir<=1 && !checkCollisionPierre() && !checkCollisionBords(scene)){
       //progression du tir
       scene.remove(pierre);
-      console.log(tir);
       pierre.position.y = om(tir,p0,p1,p2).y;
       pierre.position.x = om(tir,p0,p1,p2).x;
       tir += pasTir;
+      console.log(pasTir*calculDistance(p0,p2)*16.6);
       scene.add(pierre);
       //positionnement de la caméra au dessus de la maison vers la fin du tir
       if(pierre.position.y<25){
         camera.position.set(pierre.position.x,pierre.position.y-5,pierre.position.z+1);
         camera.lookAt(pierre.position.x,pierre.position.y,pierre.position.z);
+        //décélération
       }else{
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }
-      tir_pierre(scene,camera,pierre,p0,p1,p2);
+      tir_pierre(scene,camera,pierre,vitesse,p0,p1,p2);
     }else{
       //fin du tir
-      console.log("fin du tir");
       tir = 0;
       //si collision suppression de la pierre et apparition d'une nouvelle
-      if(!checkCollisionBords() && checkCollisionPierre()){
-        nouvellePierre(scene);
+      if(!checkCollisionBords(scene) && checkCollisionPierre()){
+        //pierre de l'équipe adverse
       }
       //retour caméra position d'origine
       setTimeout(function(){
@@ -125,7 +125,6 @@ function tir_pierre(scene,camera,pierre,p0,p1,p2){
         camera.lookAt(0,6,6);
       },1500);
       //appartition de la pierre de l'équipe adverse
-      nouvellePierre(scene);
     }
   }, 16.6);
 };
@@ -141,21 +140,15 @@ function checkCollisionPierre(){
   return false;
 }
 
-function checkCollisionBords(){
+function checkCollisionBords(scene){
   if(pierre_courante.position.x < -2.10 || pierre_courante.position.x > 2.10){
     scene.remove(tabPierres.pop());
-    nouvellePierre();
+    //pierre de l'équipe adverse
     return true;
   }
   else if(pierre_courante.position.y > 36.82){
     scene.remove(tabPierres.pop());
-    nouvellePierre();
+    //pierre de l'équipe adverse
     return true;
   }else return false;
-}
-
-function nouvellePierre(scene){
-  if(pierre_courante.children[0].material.color == Bleu.color)pierre_courante = initPierre(Rouge);
-  else pierre_courante = initPierre(Bleu);
-  scene.add(pierre_courante);
 }
