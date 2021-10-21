@@ -91,6 +91,24 @@ function traceBezier(tabPoints,nbPts){
   return Bezier;
 }
 
+function om(t,p0,p1,p2){
+  //polynomes de Bernstein
+  let b0 = Math.pow(1-t,2);
+  let b1 = 2*t*(1-t);
+  let b2 = Math.pow(t,2);
+  //multiplication des points de contrôles par les polynomes
+  let res0 = p0.clone();
+  res0.x = res0.x*b0; res0.y = res0.y*b0; res0.z = res0.z*b0;
+  let res1 = p1.clone();
+  res1.x = res1.x*b1; res1.y = res1.y*b1; res1.z = res1.z*b1;
+  let res2 = p2.clone();
+  res2.x = res2.x*b2; res2.y = res2.y*b2; res2.z = res2.z*b2;
+  //addition des 3 vecteurs résultants
+  let res = new THREE.Vector3(0,0,0);
+  res.add(res0); res.add(res1); res.add(res2);
+  return res;
+}
+
 function latheBezTab(nbPts,nbPtsRot,tab,coul,opacite,bolTranspa){
   material = new THREE.MeshPhongMaterial({
     color: coul,
