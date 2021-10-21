@@ -10,7 +10,7 @@ function repere(MaScene){
 }
 
 const PrecisionArrondi=50;
-// test si un nombre est nul okcool
+// test si un nombre est nul
 const epsilon = 0.00000001;
 function testZero(x){
   var val=parseFloat(Number(x).toPrecision(PrecisionArrondi));
