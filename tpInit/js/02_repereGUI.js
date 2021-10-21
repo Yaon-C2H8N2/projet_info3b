@@ -5,9 +5,8 @@ function init(){
     // creation de rendu et de la taille
  let rendu = new THREE.WebGLRenderer({ antialias: true });
  rendu.shadowMap.enabled = true;
- scene = new THREE.Scene();
- let result;
- camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 0.1, 100);
+ let scene = new THREE.Scene();
+ let camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 0.1, 100);
  rendu.shadowMap.enabled = true;
  rendu.setClearColor(new THREE.Color(0xFFFFFF));
  rendu.setSize(window.innerWidth*.9, window.innerHeight*.9);
@@ -42,9 +41,6 @@ function init(){
    side: THREE.DoubleSide,
  })
 
-vitesse = 200;
-tir = 0;
-pasTir = 1;
 tabPierres = [];
 
  pierre_courante = initPierre(Rouge);
@@ -52,15 +48,15 @@ tabPierres = [];
  piste = initPiste(scene);
  scene.add(piste);
 
- p1 = new THREE.Vector3(0,0,0);
- p3 = new THREE.Vector3(0,33.31,0);
- p2 = new THREE.Vector3(0,p3.y/2,0);
- p2_sphere = point(p2);
- p3_sphere = point(p3);
+ let p0 = new THREE.Vector3(0,0,0);
+ let p2 = new THREE.Vector3(0,33.31,0);
+ let p1 = new THREE.Vector3(0,p2.y/2,0);
+ let p2_sphere = point(p1);
+ let p3_sphere = point(p2);
  scene.add(p2_sphere);
  scene.add(p3_sphere);
 
- bezier = traceBezier([p1,p2,p3],vitesse);
+ let bezier = traceBezier([p0,p1,p2],10);
  scene.add(bezier);
 
  //********************************************************
@@ -80,15 +76,15 @@ tabPierres = [];
    this.camerayDir = 6;
    this.camerazDir = 6;
 
-   this.P3x = p3.x;
-   this.P3y = p3.y-33.31;
    this.P2x = p2.x;
-   this.P2y = p2.y-16.655;
+   this.P2y = p2.y-33.31;
+   this.P1x = p1.x;
+   this.P1y = p1.y-16.655;
 
    this.tirPierre = function(){
       tabPierres.push(pierre_courante);
       console.log(tabPierres);
-      tir_pierre(scene,camera,pierre_courante,bezier);
+      tir_pierre(scene,camera,pierre_courante,p0.clone(),p1.clone(),p2.clone());
    }
 
    //pour actualiser dans la scene
@@ -102,39 +98,39 @@ tabPierres = [];
  ajoutCameraGui(gui,menuGUI,camera);
  //ajout du menu pour actualiser l'affichage
  gui.add(menuGUI, "actualisation");
- gui.add(menuGUI, "P3x",-2.25,2.25).onChange(function(){
-   scene.remove(p3_sphere);
-   scene.remove(bezier);
-   p3.x = menuGUI.P3x;
-   bezier = traceBezier([p1,p2,p3],vitesse);
-   p3_sphere = point(p3);
-   scene.add(p3_sphere);
-   scene.add(bezier);
- });
- gui.add(menuGUI, "P3y",-3.66,3.66).onChange(function(){
-   scene.remove(p3_sphere);
-   scene.remove(bezier);
-   p3.y = menuGUI.P3y+33.31;
-   bezier = traceBezier([p1,p2,p3],vitesse);
-   p3_sphere = point(p3);
-   scene.add(p3_sphere);
-   scene.add(bezier);
- });
  gui.add(menuGUI, "P2x",-2.25,2.25).onChange(function(){
-   scene.remove(p2_sphere);
+   scene.remove(p3_sphere);
    scene.remove(bezier);
    p2.x = menuGUI.P2x;
-   bezier = traceBezier([p1,p2,p3],vitesse);
-   p2_sphere = point(p2);
+   bezier = traceBezier([p0,p1,p2],10);
+   p3_sphere = point(p2);
+   scene.add(p3_sphere);
+   scene.add(bezier);
+ });
+ gui.add(menuGUI, "P2y",-3.66,3.66).onChange(function(){
+   scene.remove(p3_sphere);
+   scene.remove(bezier);
+   p2.y = menuGUI.P2y+33.31;
+   bezier = traceBezier([p0,p1,p2],10);
+   p3_sphere = point(p2);
+   scene.add(p3_sphere);
+   scene.add(bezier);
+ });
+ gui.add(menuGUI, "P1x",-2.25,2.25).onChange(function(){
+   scene.remove(p2_sphere);
+   scene.remove(bezier);
+   p1.x = menuGUI.P1x;
+   bezier = traceBezier([p0,p1,p2],10);
+   p2_sphere = point(p1);
    scene.add(p2_sphere);
    scene.add(bezier);
  });
- gui.add(menuGUI, "P2y",-3,13.66).onChange(function(){
+ gui.add(menuGUI, "P1y",-3,13.66).onChange(function(){
    scene.remove(p2_sphere);
    scene.remove(bezier);
-   p2.y = menuGUI.P2y+16.655;
-   bezier = traceBezier([p1,p2,p3],vitesse);
-   p2_sphere = point(p2);
+   p1.y = menuGUI.P1y+16.655;
+   bezier = traceBezier([p0,p1,p2],10);
+   p2_sphere = point(p1);
    scene.add(p2_sphere);
    scene.add(bezier);
  });
