@@ -10,7 +10,7 @@ function repere(MaScene){
 }
 
 const PrecisionArrondi=50;
-// test si un nombre est nul okcool
+// test si un nombre est nul
 const epsilon = 0.00000001;
 function testZero(x){
   var val=parseFloat(Number(x).toPrecision(PrecisionArrondi));
@@ -48,14 +48,22 @@ function vecteur(MaScene,A,B,CoulHexa,longCone,RayonCone){
  MaScene.add( new THREE.ArrowHelper( vecAB, A, B.distanceTo(A), CoulHexa, longCone, RayonCone ));
 }
 
-function tracePoint(MaScene,A,coul){
+function point(A,coul){
   sphereGeom = new THREE.SphereGeometry(0.05,10,10);
   if(coul == undefined)mesh = new THREE.Mesh(sphereGeom,new THREE.MeshBasicMaterial({color: 0x999999}));
   else mesh = new THREE.Mesh(sphereGeom,new THREE.MeshBasicMaterial({color: coul}));
   mesh.position.x = A.x;
   mesh.position.y = A.y;
   mesh.position.z = A.z;
-  MaScene.add(mesh)
+  return mesh;
+}
+
+function tracePoint(MaScene,A,coul){
+  MaScene.add(point(A,coul));
+}
+
+function calculDistance(A,B){
+  return Math.sqrt(Math.pow(B.x-A.x,2)+Math.pow(B.y-A.y,2));
 }
 
 function segment(MaScene, A, B) {
@@ -81,6 +89,24 @@ function traceBezier(tabPoints,nbPts){
   });
   let Bezier = new THREE.Line(cbeGeometry, material);
   return Bezier;
+}
+
+function om(t,p0,p1,p2){
+  //polynomes de Bernstein
+  let b0 = Math.pow(1-t,2);
+  let b1 = 2*t*(1-t);
+  let b2 = Math.pow(t,2);
+  //multiplication des points de contrôles par les polynomes
+  let res0 = p0.clone();
+  res0.x = res0.x*b0; res0.y = res0.y*b0; res0.z = res0.z*b0;
+  let res1 = p1.clone();
+  res1.x = res1.x*b1; res1.y = res1.y*b1; res1.z = res1.z*b1;
+  let res2 = p2.clone();
+  res2.x = res2.x*b2; res2.y = res2.y*b2; res2.z = res2.z*b2;
+  //addition des 3 vecteurs résultants
+  let res = new THREE.Vector3(0,0,0);
+  res.add(res0); res.add(res1); res.add(res2);
+  return res;
 }
 
 function latheBezTab(nbPts,nbPtsRot,tab,coul,opacite,bolTranspa){
