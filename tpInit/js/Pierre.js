@@ -90,10 +90,9 @@ function initPierre(material){
   return pierre;
 }
 
-tir = 0;
+let tir = 0;
 function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2){
   setTimeout(function(){
-    console.log(pierre);
     vitesse = pasTir*calculDistance(p0,p2)*16.6;
     if(tir<=1 && !checkCollisionPierre(pierre,vitesse) && !checkCollisionBords(pierre)){
       //progression du tir
@@ -125,8 +124,6 @@ function checkCollisionPierre(pierre,vitesse){
   //calcul de la distance avec toutes les pierre en jeu
   for(i=0;i<tabPierres.length;i++){
     if(pierre != tabPierres[i] && calculDistance(tabPierres[i].position,pierre.position)<=0.3){
-      //collision
-      console.log("Collision entre pierre "+tabPierres.indexOf(pierre)+" et pierre "+i);
       //calcul du vecteur directeur de la trajectoire après collision
       let x = tabPierres[i].position.x-pierre.position.x;
       let y = tabPierres[i].position.y-pierre.position.y;
