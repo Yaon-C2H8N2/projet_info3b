@@ -23,8 +23,8 @@ function initPiste(scene) {
   ptDepart2 = new THREE.Vector3(2.25,0,0);
   segment(scene, ptDepart1, ptDepart2);
 
-  zone_maison1 = new THREE.Vector3(-2.25,30.31,0);
-  zone_maison2 = new THREE.Vector3(2.25,30.31,0);
+  zone_maison1 = new THREE.Vector3(-2.25,29.65,0);
+  zone_maison2 = new THREE.Vector3(2.25,29.65,0);
   segment(scene, zone_maison1, zone_maison2);
 
   piste = new THREE.Group();
