@@ -41,7 +41,7 @@ function init(){
    side: THREE.DoubleSide,
  })
 
-tabPierres = [];
+ tabPierres = [];
 
  pierre_courante = initPierre(Rouge);
  scene.add(pierre_courante);
