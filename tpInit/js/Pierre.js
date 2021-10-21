@@ -90,15 +90,17 @@ function initPierre(material){
   return pierre;
 }
 
-function tir_pierre(scene,camera,pierre,bezier){
+tir = 0;
+pasTir = 0.004;
+function tir_pierre(scene,camera,pierre,p0,p1,p2){
   setTimeout(function(){
-    scene.remove(bezier);
-    if(tir<vitesse && !checkCollisionPierre() && !checkCollisionBords()){
+    if(tir<1+pasTir && !checkCollisionPierre() && !checkCollisionBords()){
       //progression du tir
-      tir += pasTir;
       scene.remove(pierre);
-      pierre.position.y = bezier.geometry.vertices[tir].y;
-      pierre.position.x = bezier.geometry.vertices[tir].x;
+      console.log(tir);
+      pierre.position.y = om(tir,p0,p1,p2).y;
+      pierre.position.x = om(tir,p0,p1,p2).x;
+      tir += pasTir;
       scene.add(pierre);
       //positionnement de la caméra au dessus de la maison vers la fin du tir
       if(pierre.position.y<25){
@@ -108,14 +110,14 @@ function tir_pierre(scene,camera,pierre,bezier){
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }
-      tir_pierre(scene,camera,pierre,bezier);
+      tir_pierre(scene,camera,pierre,p0,p1,p2);
     }else{
       //fin du tir
       console.log("fin du tir");
       tir = 0;
       //si collision suppression de la pierre et apparition d'une nouvelle
       if(!checkCollisionBords() && checkCollisionPierre()){
-        nouvellePierre();
+        nouvellePierre(scene);
       }
       //retour caméra position d'origine
       setTimeout(function(){
@@ -123,7 +125,7 @@ function tir_pierre(scene,camera,pierre,bezier){
         camera.lookAt(0,6,6);
       },1500);
       //appartition de la pierre de l'équipe adverse
-      nouvellePierre();
+      nouvellePierre(scene);
     }
   }, 16.6);
 };
@@ -152,7 +154,7 @@ function checkCollisionBords(){
   }else return false;
 }
 
-function nouvellePierre(){
+function nouvellePierre(scene){
   if(pierre_courante.children[0].material.color == Bleu.color)pierre_courante = initPierre(Rouge);
   else pierre_courante = initPierre(Bleu);
   scene.add(pierre_courante);
