@@ -57,11 +57,15 @@ function init(){
  piste = initPiste(scene);
  scene.add(piste);
 
+<<<<<<< Updated upstream
  balai = initBalai(scene);
  scene.add(balai);
  balai.position.y = 1;
 
  p1 = new THREE.Vector3(pierre_rouge.getWorldPosition().x,pierre_rouge.getWorldPosition().y,0);
+=======
+ p1 = new THREE.Vector3(pierre_rouge.position.x,pierre_rouge.position.y,0);
+>>>>>>> Stashed changes
  p3 = new THREE.Vector3(0,33.31,0);
  p2 = new THREE.Vector3(0,(33.31+pierre_rouge.getWorldPosition().y)/2,0);
  p2_sphere = test_point(p2);
