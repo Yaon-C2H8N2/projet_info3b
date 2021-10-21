@@ -93,7 +93,8 @@ function initPierre(material){
 tir = 0;
 function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2){
   setTimeout(function(){
-    vitesse = pasTir*calculDistance(p0,p2)*16.6
+    console.log(pierre);
+    vitesse = pasTir*calculDistance(p0,p2)*16.6;
     if(tir<=1 && !checkCollisionPierre(pierre,vitesse) && !checkCollisionBords(pierre)){
       //progression du tir
       pierre.position.y = om(tir,p0,p1,p2).y;
