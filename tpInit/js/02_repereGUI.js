@@ -41,11 +41,11 @@ function init(){
    side: THREE.DoubleSide,
  })
 
- tabPierres = [];
+ tabPierres = []; //trouver un moyen d'en faire une variable locale
 
- pierre_courante = initPierre(Rouge);
+ pierre_courante = initPierre(Rouge); //trouver un moyen d'en faire une variable locale
  scene.add(pierre_courante);
- piste = initPiste(scene);
+ let piste = initPiste(scene);
  scene.add(piste);
 
  let p0 = new THREE.Vector3(0,0,0);
@@ -104,7 +104,7 @@ function init(){
         }
         scene.add(pierre_courante);
         //deverouiller menu GUI
-      },14000);
+      },12000);
    }
 
    //pour actualiser dans la scene
