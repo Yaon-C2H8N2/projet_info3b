@@ -57,6 +57,10 @@ function init(){
  piste = initPiste(scene);
  scene.add(piste);
 
+ balai = initBalai(scene);
+ scene.add(balai);
+ balai.position.y = 1;
+
  p1 = new THREE.Vector3(pierre_rouge.getWorldPosition().x,pierre_rouge.getWorldPosition().y,0);
  p3 = new THREE.Vector3(0,33.31,0);
  p2 = new THREE.Vector3(0,(33.31+pierre_rouge.getWorldPosition().y)/2,0);
@@ -77,14 +81,14 @@ function init(){
  var gui = new dat.GUI();//interface graphique utilisateur
   // ajout du menu dans le GUI
  let menuGUI = new function () {
-   this.cameraxPos = 0;
-   this.camerayPos = -6;
-   this.camerazPos = 6;
-   this.cameraZoom = 6;
+   this.cameraxPos = 0;   //à remttre à 0    -1
+   this.camerayPos = -6;   //à remttre à -6   -4.6
+   this.camerazPos = 6;   //à remettre à 6    3.7
+   this.cameraZoom = 6;   //à remttre à 6   0.5
    //pb avec camera lockAt
    this.cameraxDir = 0;
-   this.camerayDir = 6;
-   this.camerazDir = 6;
+   this.camerayDir = 6;   //à remettre à 6    0
+   this.camerazDir = 6;   //à remettre à 6    1
 
    this.P3x = p3.x;
    this.P3y = p3.y-33.31;
