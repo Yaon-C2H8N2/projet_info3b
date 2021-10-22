@@ -26,7 +26,7 @@ function initPierre(material){
   //création de la jointure des cylindres de la poignée
   let tabHaut = [];
   let tabBas = [];
-  for(i=0;i<nbFacesCylindres;i++){
+  for(let i=0;i<nbFacesCylindres;i++){
     if(i<(nbFacesCylindres-1)/2){
       tabHaut.push(poigne_verticale.vertices[i]);
       tabBas.push(poigne_horizontale.vertices[(nbFacesCylindres)/2-i]);
@@ -37,7 +37,7 @@ function initPierre(material){
   }
 
   //merge de la jointure au mesh final
-  for(i=0;i<tabBas.length;i++){
+  for(let i=0;i<tabBas.length;i++){
     let faceGeom = new THREE.Geometry();
     faceGeom.vertices = [tabBas[i],tabHaut[i],tabHaut[(i+1)%tabHaut.length],tabBas[(i+1)%tabBas.length]];
     faceGeom.faces = [new THREE.Face3(0,1,2),new THREE.Face3(0,2,3)]
@@ -122,7 +122,7 @@ function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2){
 
 function checkCollisionPierre(pierre,vitesse){
   //calcul de la distance avec toutes les pierre en jeu
-  for(i=0;i<tabPierres.length;i++){
+  for(let i=0;i<tabPierres.length;i++){
     if(pierre != tabPierres[i] && calculDistance(tabPierres[i].position,pierre.position)<=0.3){
       //calcul du vecteur directeur de la trajectoire après collision
       let x = tabPierres[i].position.x-pierre.position.x;
