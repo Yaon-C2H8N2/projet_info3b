@@ -11129,7 +11129,7 @@
 
 					} else {
 
-						console.warn( 'THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ', i );
+						//console.warn( 'THREE.DirectGeometry.fromGeometry(): Undefined vertexUv ', i );
 
 						this.uvs.push( new Vector2(), new Vector2(), new Vector2() );
 
