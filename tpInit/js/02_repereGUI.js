@@ -98,6 +98,7 @@ function init(){
         tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone());
         tirEnCours = true;
         //verrouiller menu GUI
+        console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
         setTimeout(function(){
           if(pierre_courante.children[0].material.color.r == 1){
             pierre_courante = initPierre(Bleu);
@@ -107,6 +108,17 @@ function init(){
           scene.add(pierre_courante);
           //deverouiller menu GUI
           tirEnCours = false;
+          let distanceRouge = 100;
+          let distanceBleu = 100;
+          for(let i=0;i<tabPierres.length;i++){
+            if(tabPierres[i].children[0].material.color.r == 1 && calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0)) < distanceRouge){
+              distanceRouge = calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0));
+            }else if(tabPierres[i].children[0].material.color.b == 1 && calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0)) < distanceBleu){
+              distanceBleu = calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0));
+            }
+          }
+          console.log("DistanceRouge = "+distanceRouge);
+          console.log("DistanceBleu = "+distanceBleu);
         },10000);
       }
    }
