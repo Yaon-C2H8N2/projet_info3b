@@ -107,7 +107,7 @@ function init(){
           scene.add(pierre_courante);
           //deverouiller menu GUI
           tirEnCours = false;
-        },12000);
+        },10000);
       }
    }
 
