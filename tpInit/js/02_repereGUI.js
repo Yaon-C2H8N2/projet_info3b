@@ -17,6 +17,7 @@ function init(){
  //plans contenant deux axes du repere
  //planRepere(scene);
 
+ //À FAIRE : trouver un moyen d'en faire une variable locale
  Bleu = new THREE.MeshPhongMaterial({
    color: "#0000FF",
    opacity: 0.5,
@@ -28,7 +29,7 @@ function init(){
    //wireframe: true,
    side: THREE.DoubleSide,
  })
-
+ //À FAIRE : trouver un moyen d'en faire une variable locale
  Rouge = new THREE.MeshPhongMaterial({
    color: "#FF0000",
    opacity: 0.5,
@@ -41,13 +42,14 @@ function init(){
    side: THREE.DoubleSide,
  })
 
- tabPierres = []; //trouver un moyen d'en faire une variable locale
+ tabPierres = []; //À FAIRE : trouver un moyen d'en faire une variable locale
  let tirEnCours = false;
  let pierre_courante = initPierre(Rouge);
  scene.add(pierre_courante);
  let piste = initPiste(scene);
  scene.add(piste);
 
+ //points de contrôles courbe de tir
  let p0 = new THREE.Vector3(0,0,0);
  let p2 = new THREE.Vector3(0,33.31,0);
  let p1 = new THREE.Vector3(0,p2.y/2,0);
@@ -56,6 +58,7 @@ function init(){
  scene.add(p2_sphere);
  scene.add(p3_sphere);
 
+ //courbe de Bezier visible du joueur != courbe de tracjectoire
  let bezier = traceBezier([p0,p1,p2],10);
  scene.add(bezier);
 
@@ -117,6 +120,7 @@ function init(){
               distanceBleu = calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0));
             }
           }
+          //À FAIRE : ajout calcul des scores
           console.log("DistanceRouge = "+distanceRouge);
           console.log("DistanceBleu = "+distanceBleu);
         },10000);
@@ -184,18 +188,7 @@ function init(){
  function posCamera(){
   camera.position.set(menuGUI.cameraxPos*testZero(menuGUI.cameraZoom),menuGUI.camerayPos*testZero(menuGUI.cameraZoom),menuGUI.camerazPos*testZero(menuGUI.cameraZoom));
   camera.lookAt(menuGUI.cameraxDir,menuGUI.camerayDir,menuGUI.camerazDir);
-  actuaPosCameraHTML();
  }
-
- //affichage dans la page HTML
- function actuaPosCameraHTML(){
-  document.forms["controle"].PosX.value=testZero(menuGUI.cameraxPos);
-  document.forms["controle"].PosY.value=testZero(menuGUI.camerayPos);
-  document.forms["controle"].PosZ.value=testZero(menuGUI.camerazPos);
-  document.forms["controle"].DirX.value=testZero(menuGUI.cameraxDir);
-  document.forms["controle"].DirY.value=testZero(menuGUI.camerayDir);
-  document.forms["controle"].DirZ.value=testZero(menuGUI.camerazDir);
- } // fin fonction posCamera
   // ajoute le rendu dans l'element HTML
  document.getElementById("webgl").appendChild(rendu.domElement);
 
