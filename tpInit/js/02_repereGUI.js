@@ -43,6 +43,7 @@ function init(){
  })
 
  tabPierres = []; //À FAIRE : trouver un moyen d'en faire une variable locale
+ let cptTir = 0;
  let tirEnCours = false;
  let pierre_courante = initPierre(Rouge);
  let balais = initBalais(Rouge);
@@ -96,7 +97,9 @@ function init(){
    }
 
    this.tirPierre = function(){
-      if(tirEnCours == false){
+      if(tirEnCours == false && cptTir <10){
+        cptTir++;
+        console.log("Tir n°"+cptTir);
         tabPierres.push(pierre_courante);
         let pasTir = (2.5/calculDistance(p0,p2))/16.6;
         scene.add(balais);
@@ -117,16 +120,8 @@ function init(){
           tirEnCours = false;
           let distanceRouge = 100;
           let distanceBleu = 100;
-          for(let i=0;i<tabPierres.length;i++){
-            if(tabPierres[i].children[0].material.color.r == 1 && calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0)) < distanceRouge){
-              distanceRouge = calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0));
-            }else if(tabPierres[i].children[0].material.color.b == 1 && calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0)) < distanceBleu){
-              distanceBleu = calculDistance(tabPierres[i].position,new THREE.Vector3(0,33.31,0));
-            }
-          }
+          triDistance(tabPierres);
           //À FAIRE : ajout calcul des scores
-          console.log("DistanceRouge = "+distanceRouge);
-          console.log("DistanceBleu = "+distanceBleu);
         },10000);
       }
    }
