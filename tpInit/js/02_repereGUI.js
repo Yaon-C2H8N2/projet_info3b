@@ -98,7 +98,10 @@ function init(){
       if(tirEnCours == false){
         tabPierres.push(pierre_courante);
         let pasTir = (2.5/calculDistance(p0,p2))/16.6;
-        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone());
+        balais = initBalais(Rouge);
+        scene.add(balais);
+        balais.position.y = 1;
+        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais);
         tirEnCours = true;
         //verrouiller menu GUI
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
