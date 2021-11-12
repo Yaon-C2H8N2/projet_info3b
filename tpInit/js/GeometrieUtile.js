@@ -126,6 +126,10 @@ function latheBezTab(nbPts,nbPtsRot,tab,coul,opacite,bolTranspa){
   return mesh;
 }
 
+function triDistance(tab){
+  //fonction tri en fonction de la distance
+}
+
 // affichage des composantes dans la page HTML
 function afficheVecteur(V,nom,lieu){
  var mes = nom+" : (";
