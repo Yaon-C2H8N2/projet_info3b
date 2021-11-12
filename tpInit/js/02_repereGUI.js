@@ -45,6 +45,7 @@ function init(){
  tabPierres = []; //À FAIRE : trouver un moyen d'en faire une variable locale
  let tirEnCours = false;
  let pierre_courante = initPierre(Rouge);
+ let balais = initBalais(Rouge);
  scene.add(pierre_courante);
  let piste = initPiste(scene);
  scene.add(piste);
@@ -98,9 +99,7 @@ function init(){
       if(tirEnCours == false){
         tabPierres.push(pierre_courante);
         let pasTir = (2.5/calculDistance(p0,p2))/16.6;
-        balais = initBalais(Rouge);
         scene.add(balais);
-        balais.position.y = 1;
         tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais);
         tirEnCours = true;
         //verrouiller menu GUI
@@ -108,8 +107,10 @@ function init(){
         setTimeout(function(){
           if(pierre_courante.children[0].material.color.r == 1){
             pierre_courante = initPierre(Bleu);
+            balais = initBalais(Bleu);
           }else{
             pierre_courante = initPierre(Rouge);
+            balais = initBalais(Rouge);
           }
           scene.add(pierre_courante);
           //deverouiller menu GUI
