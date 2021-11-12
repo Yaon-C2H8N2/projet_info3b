@@ -1,17 +1,5 @@
  //creation balai
- MaterialPhong = new THREE.MeshPhongMaterial({
-   color: "#0000FF",
-   opacity: 0.5,
-   //transparent: true,
-   emissive: 0x000000,
-   //specular: "#00FFFF",
-   flatShading: true,
-   shininess: 30,
-   //wireframe: true,
-   side: THREE.DoubleSide,
- })
-
-function initBalai(scene) {
+function initBalais(MaterialPhong) {
    let balai = new THREE.Group();
   //creation base Balai
    let baseBalai = new THREE.BoxGeometry(0.06/*largeur*/, 0.2/*longueur*/, 0.03/*eppaisseur*/)
