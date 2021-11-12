@@ -110,7 +110,7 @@ function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais){
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }
-      tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2);
+      tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais);
     }else{
       //fin du tir
       tir = 0;
