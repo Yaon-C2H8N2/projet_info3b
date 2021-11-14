@@ -91,7 +91,7 @@ function initPierre(material){
 }
 
 let tir = 0;
-function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais){
+function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2){
   setTimeout(function(){
     vitesse = pasTir*calculDistance(p0,p2)*16.6;
     if(tir<=1 && !checkCollisionPierre(pierre,vitesse) && !checkCollisionBords(pierre)){
@@ -99,7 +99,9 @@ function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais){
       pierre.position.y = om(tir,p0,p1,p2).y;
       pierre.position.x = om(tir,p0,p1,p2).x;
       balais.position.y = pierre.position.y;
-      balais.position.x = pierre.position.x+Math.sin(tir*100)/2;
+      balais.position.x = pierre.position.x+Math.sin(tir*75)/2;
+      balai2.position.y = pierre.position.y+1.5;
+      balai2.position.x = pierre.position.x-Math.sin(tir*75)/2;
       tir += pasTir;
       //positionnement de la caméra au dessus de la maison vers la fin du tir
       if(pierre.position.y<25){
@@ -107,15 +109,18 @@ function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais){
         camera.lookAt(pierre.position.x,pierre.position.y,pierre.position.z);
       }else if(pierre.position.y>29.65){
         scene.remove(balais);
+        scene.remove(balai2);
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }else{
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }
-      tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais);
+      tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2);
     }else{
       //fin du tir
+      scene.remove(balais);
+      scene.remove(balai2);
       tir = 0;
       //retour caméra position d'origine
       setTimeout(function(){

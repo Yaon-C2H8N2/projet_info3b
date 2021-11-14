@@ -34,7 +34,7 @@ function initBalais(MaterialPhong) {
 
  let groupeBalai = new THREE.Group();
  groupeBalai.add(balai);
- groupeBalai.add(balai2);
+ //groupeBalai.add(balai2);
 
 groupeBalai.position.z = 0.018;
  return groupeBalai;

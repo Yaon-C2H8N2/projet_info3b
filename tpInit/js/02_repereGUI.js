@@ -46,6 +46,8 @@ function init(){
  let tirEnCours = false;
  let pierre_courante = initPierre(Rouge);
  let balais = initBalais(Rouge);
+ let balai2 = initBalais(Rouge);
+ balai2.rotateZ(Math.PI);
  scene.add(pierre_courante);
  let piste = initPiste(scene);
  scene.add(piste);
@@ -100,7 +102,8 @@ function init(){
         tabPierres.push(pierre_courante);
         let pasTir = (2.5/calculDistance(p0,p2))/16.6;
         scene.add(balais);
-        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais);
+        scene.add(balai2);
+        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais,balai2);
         tirEnCours = true;
         //verrouiller menu GUI
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
@@ -108,9 +111,11 @@ function init(){
           if(pierre_courante.children[0].material.color.r == 1){
             pierre_courante = initPierre(Bleu);
             balais = initBalais(Bleu);
+            balai2 = initBalais(Bleu);
           }else{
             pierre_courante = initPierre(Rouge);
             balais = initBalais(Rouge);
+            balai2 = initBalai(Rouge);
           }
           scene.add(pierre_courante);
           //deverouiller menu GUI
