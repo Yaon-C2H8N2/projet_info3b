@@ -6,7 +6,7 @@ function initBalais(MaterialPhong) {
    let meshBaseBalai = new THREE.Mesh(baseBalai, MaterialPhong);
 
   //creation manche balai
-   let mancheBalai = new THREE.CylinderGeometry(0.02, 0.01, 1.4, 10);
+  let mancheBalai = new THREE.CylinderGeometry(0.02, 0.01, 1.4, 10);
   mancheBalai.translate(0,0.7,0);
   let meshMancheBalai = new THREE.Mesh(mancheBalai, MaterialPhong);
   meshMancheBalai.rotation.x = Math.PI/2;
