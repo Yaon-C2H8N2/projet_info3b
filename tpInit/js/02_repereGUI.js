@@ -112,10 +112,12 @@ function init(){
             pierre_courante = initPierre(Bleu);
             balais = initBalais(Bleu);
             balai2 = initBalais(Bleu);
+            balai2.rotateZ(Math.PI);
           }else{
             pierre_courante = initPierre(Rouge);
             balais = initBalais(Rouge);
-            balai2 = initBalai(Rouge);
+            balai2 = initBalais(Rouge);
+            balai2.rotateZ(Math.PI);
           }
           scene.add(pierre_courante);
           //deverouiller menu GUI
