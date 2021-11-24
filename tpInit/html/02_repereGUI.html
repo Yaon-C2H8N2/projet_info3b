@@ -25,11 +25,26 @@
     <div id="webgl"></div>
     <form id="controle" action="mailto:toto@wanadoo.fr" method="post">
       <fieldset>
-        <legend>Scores des équipes</legend>
+        <legend>Scores des &eacute;quipes</legend>
         <div>
-          <!--À FAIRE : Ajouter le tableau des scores des équipes et un compteur de tir-->
-          <div id="score_rouge"></div>
-          <div id="score_bleu"></div>
+          <table id="tableau_score">
+            <tr>
+              <td>
+                Score &eacute;quipe bleue :
+              </td>
+              <td id="score_bleu">
+                0
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Score &eacute;quipe rouge :
+              </td>
+              <td id="score_rouge">
+                0
+              </td>
+            </tr>
+          </table>
         </div>
       </fieldset>
     </form>
