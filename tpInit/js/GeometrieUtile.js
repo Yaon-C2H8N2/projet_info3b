@@ -126,8 +126,50 @@ function latheBezTab(nbPts,nbPtsRot,tab,coul,opacite,bolTranspa){
   return mesh;
 }
 
+function getColor(pierre){
+  if(pierre.children[0].material.color.r == 1){
+    return "rouge";
+  }else return "bleu";
+}
+
 function triDistance(tab){
-  //fonction tri en fonction de la distance
+  let tabTrie = [];
+  for(let i in tab){
+    val = calculDistance(tab[i].position,new THREE.Vector3(0,33.31,0))
+    tabTrie.push(val);
+  }
+  let n = tabTrie.length;
+  for(let i=0;i<n-1;i++){
+    min = i;
+    for(let j=i+1;j<n;j++){
+      if(tabTrie[j] < tabTrie[min]){
+        min = j;
+      }
+    }
+    if(min != i){
+      [tabTrie[i],tabTrie[min]] = [tabTrie[min],tabTrie[i]];
+      [tab[i],tab[min]] = [tab[min],tab[i]];
+    }
+  }
+}
+
+function calculScores(tab){
+  let gagnant = getColor(tab[0]);
+  let pts = 0;
+  let i = 0;
+  if(tab.length>1){
+    while(getColor(tab[i]) == gagnant){
+      pts++;
+      i++;
+    }
+  }
+  if(gagnant == "rouge"){
+    document.getElementById("score_rouge").innerHTML = pts;
+    document.getElementById("score_bleu").innerHTML = 0;
+  }else{
+    document.getElementById("score_bleu").innerHTML = pts;
+    document.getElementById("score_rouge").innerHTML = 0;
+  }
 }
 
 // affichage des composantes dans la page HTML
