@@ -18,7 +18,7 @@ function init(){
  //planRepere(scene);
 
  //À FAIRE : trouver un moyen d'en faire une variable locale
- Bleu = new THREE.MeshPhongMaterial({
+ let Bleu = new THREE.MeshPhongMaterial({
    color: "#0000FF",
    opacity: 0.5,
    //transparent: true,
@@ -30,7 +30,7 @@ function init(){
    side: THREE.DoubleSide,
  })
  //À FAIRE : trouver un moyen d'en faire une variable locale
- Rouge = new THREE.MeshPhongMaterial({
+ let Rouge = new THREE.MeshPhongMaterial({
    color: "#FF0000",
    opacity: 0.5,
    //transparent: true,
