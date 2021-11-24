@@ -109,7 +109,7 @@ function init(){
         //verrouiller menu GUI
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
         setTimeout(function(){
-          if(pierre_courante.children[0].material.color.r == 1){
+          if(getColor(pierre_courante) == "rouge"){
             pierre_courante = initPierre(Bleu);
             balais = initBalais(Bleu);
             balai2 = initBalais(Bleu);
@@ -126,7 +126,7 @@ function init(){
           let distanceRouge = 100;
           let distanceBleu = 100;
           triDistance(tabPierres);
-          //À FAIRE : ajout calcul des scores
+          calculScores(tabPierres);
         },10000);
       }
    }
