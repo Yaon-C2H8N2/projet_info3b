@@ -17,7 +17,6 @@ function init(){
  //plans contenant deux axes du repere
  //planRepere(scene);
 
- //À FAIRE : trouver un moyen d'en faire une variable locale
  let Bleu = new THREE.MeshPhongMaterial({
    color: "#0000FF",
    opacity: 0.5,
@@ -29,7 +28,6 @@ function init(){
    //wireframe: true,
    side: THREE.DoubleSide,
  })
- //À FAIRE : trouver un moyen d'en faire une variable locale
  let Rouge = new THREE.MeshPhongMaterial({
    color: "#FF0000",
    opacity: 0.5,
