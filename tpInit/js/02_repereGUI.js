@@ -17,8 +17,7 @@ function init(){
  //plans contenant deux axes du repere
  //planRepere(scene);
 
- //À FAIRE : trouver un moyen d'en faire une variable locale
- Bleu = new THREE.MeshPhongMaterial({
+ let Bleu = new THREE.MeshPhongMaterial({
    color: "#0000FF",
    opacity: 0.5,
    //transparent: true,
@@ -29,8 +28,7 @@ function init(){
    //wireframe: true,
    side: THREE.DoubleSide,
  })
- //À FAIRE : trouver un moyen d'en faire une variable locale
- Rouge = new THREE.MeshPhongMaterial({
+ let Rouge = new THREE.MeshPhongMaterial({
    color: "#FF0000",
    opacity: 0.5,
    //transparent: true,
@@ -47,6 +45,8 @@ function init(){
  let tirEnCours = false;
  let pierre_courante = initPierre(Rouge);
  let balais = initBalais(Rouge);
+ let balai2 = initBalais(Rouge);
+ balai2.rotateZ(Math.PI);
  scene.add(pierre_courante);
  let piste = initPiste(scene);
  scene.add(piste);
@@ -103,7 +103,8 @@ function init(){
         tabPierres.push(pierre_courante);
         let pasTir = (2.5/calculDistance(p0,p2))/16.6;
         scene.add(balais);
-        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais);
+        scene.add(balai2);
+        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais,balai2);
         tirEnCours = true;
         //verrouiller menu GUI
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
@@ -111,9 +112,13 @@ function init(){
           if(pierre_courante.children[0].material.color.r == 1){
             pierre_courante = initPierre(Bleu);
             balais = initBalais(Bleu);
+            balai2 = initBalais(Bleu);
+            balai2.rotateZ(Math.PI);
           }else{
             pierre_courante = initPierre(Rouge);
             balais = initBalais(Rouge);
+            balai2 = initBalais(Rouge);
+            balai2.rotateZ(Math.PI);
           }
           scene.add(pierre_courante);
           //deverouiller menu GUI
