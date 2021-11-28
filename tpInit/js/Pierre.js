@@ -91,10 +91,10 @@ function initPierre(material){
 }
 
 let tir = 0;
-function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2){
+function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2,tabPierres){
   setTimeout(function(){
     vitesse = pasTir*calculDistance(p0,p2)*16.6;
-    if(tir<=1 && !checkCollisionPierre(pierre,vitesse) && !checkCollisionBords(pierre)){
+    if(tir<=1 && !checkCollisionPierre(pierre,vitesse,tabPierres) && !checkCollisionBords(pierre,tabPierres)){
       //progression du tir
       pierre.position.y = om(tir,p0,p1,p2).y;
       pierre.position.x = om(tir,p0,p1,p2).x;
@@ -116,7 +116,7 @@ function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2){
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }
-      tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2);
+      tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2,tabPierres);
     }else{
       //fin du tir
       scene.remove(balais);
@@ -131,7 +131,7 @@ function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2){
   }, 16.6);
 };
 
-function checkCollisionPierre(pierre,vitesse){
+function checkCollisionPierre(pierre,vitesse,tabPierres){
   //calcul de la distance avec toutes les pierre en jeu
   for(let i=0;i<tabPierres.length;i++){
     if(pierre != tabPierres[i] && calculDistance(tabPierres[i].position,pierre.position)<=0.3){
@@ -141,14 +141,14 @@ function checkCollisionPierre(pierre,vitesse){
       let z = tabPierres[i].position.z-pierre.position.z;
       let vec =  new THREE.Vector3(x,y,z);
       //longueur du vecteur est de 0.15m, multiplié par 60 fps on obtient la valeur par laquelle diviser la vitesse pour le pas
-      rebond(vitesse/(0.15*60),pierre.position,vec,tabPierres[i]);
+      rebond(vitesse/(0.15*60),pierre.position,vec,tabPierres[i],tabPierres);
       return true;
     }
   }
   return false;
 }
 
-function checkCollisionBords(pierre){
+function checkCollisionBords(pierre,tabPierres){
   if(pierre.position.x < -2.10 || pierre.position.x > 2.10){
     pierre.parent.remove(pierre);
     tabPierres.splice(tabPierres.indexOf(pierre),1);
@@ -161,24 +161,24 @@ function checkCollisionBords(pierre){
   }else return false;
 }
 
-function rebond(vitesse,origine,vecteur,pierre){
+function rebond(vitesse,origine,vecteur,pierre,tabPierres){
   //début animation
   setTimeout(function(){
     //si distance origine>pierre inférieure au rayon de la pierre pas de détection de collision
     if(calculDistance(origine,pierre.position)<=0.3){
       pierre.position.x = pierre.position.x + vitesse*vecteur.x;
       pierre.position.y = pierre.position.y + vitesse*vecteur.y;
-      rebond(vitesse,origine,vecteur,pierre);
+      rebond(vitesse,origine,vecteur,pierre,tabPierres);
     }
     //deplacement si vitesse assez élevée et pas de collision avec bord
-    else if(vitesse>0.001 && !checkCollisionBords(pierre)){
+    else if(vitesse>0.001 && !checkCollisionBords(pierre,tabPierres)){
       pierre.position.x = pierre.position.x + vitesse*vecteur.x;
       pierre.position.y = pierre.position.y + vitesse*vecteur.y;
       //décélération
       vitesse = vitesse*0.9;
       //check collision car en dehors de la pierre d'origine
-      checkCollisionPierre(pierre,vitesse)
-      rebond(vitesse,origine,vecteur,pierre);
+      checkCollisionPierre(pierre,vitesse,tabPierres)
+      rebond(vitesse,origine,vecteur,pierre,tabPierres);
     }else{
       //fin du rebond
     }
