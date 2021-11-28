@@ -40,7 +40,7 @@ function init(){
    side: THREE.DoubleSide,
  })
 
- let tabPierres = []; //À FAIRE : trouver un moyen d'en faire une variable locale
+ let tabPierres = [];
  let cptTir = 0;
  let tirEnCours = false;
  let pierre_courante = initPierre(Rouge);
@@ -72,14 +72,14 @@ function init(){
  var gui = new dat.GUI();//interface graphique utilisateur
   // ajout du menu dans le GUI
  let menuGUI = new function () {
-   this.cameraxPos = 0;   //à remttre à 0    -1
-   this.camerayPos = -6;   //à remttre à -6   -4.6
-   this.camerazPos = 6;   //à remettre à 6    3.7
-   this.cameraZoom = 6;   //à remttre à 6   0.5
+   this.cameraxPos = 0;
+   this.camerayPos = -6;
+   this.camerazPos = 6;
+   this.cameraZoom = 6;
    //pb avec camera lockAt
    this.cameraxDir = 0;
-   this.camerayDir = 6;   //à remettre à 6    0
-   this.camerazDir = 6;   //à remettre à 6    1
+   this.camerayDir = 6;
+   this.camerazDir = 6;
 
    this.P2x = p2.x;
    this.P2y = p2.y-33.31;
@@ -100,15 +100,17 @@ function init(){
       if(tirEnCours == false && cptTir <10){
         cptTir++;
         console.log("Tir n°"+cptTir);
+        //ajout de la pierre au tableau des pierre tirées
         tabPierres.push(pierre_courante);
         let pasTir = (2.5/calculDistance(p0,p2))/16.6;
         scene.add(balais);
         scene.add(balai2);
         tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais,balai2,tabPierres);
         tirEnCours = true;
-        //verrouiller menu GUI
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
+        //attente de la fin du tir pour faire apparaître une nouvelle pierre
         setTimeout(function(){
+          //appartition d'une pierre de l'équipe adverse à celle qui vient de tirer
           if(getColor(pierre_courante) == "rouge"){
             pierre_courante = initPierre(Bleu);
             balais = initBalais(Bleu);
@@ -128,7 +130,7 @@ function init(){
           }
           triDistance(tabPierres);
           calculScores(tabPierres);
-        },10000);
+        },8000);
       }
    }
 
