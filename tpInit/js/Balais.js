@@ -2,7 +2,7 @@
 function initBalais(MaterialPhong) {
    let balai = new THREE.Group();
   //creation base Balai
-   let baseBalai = new THREE.BoxGeometry(0.06/*largeur*/, 0.2/*longueur*/, 0.03/*eppaisseur*/)
+   let baseBalai = new THREE.BoxGeometry(0.06/*largeur*/, 0.2/*longueur*/, 0.03/*épaisseur*/)
    let meshBaseBalai = new THREE.Mesh(baseBalai, MaterialPhong);
 
   //creation manche balai
@@ -15,7 +15,7 @@ function initBalais(MaterialPhong) {
   balai.add(meshBaseBalai);
   balai.add(meshMancheBalai);
 
-  //creations cones balai
+  //creation cones balai
   cone1 = new THREE.ConeGeometry( 0.01, 0.01, 10 );
   for(let j=0; j<3; j++) {
     for(let i=0; i<7; i++) {
