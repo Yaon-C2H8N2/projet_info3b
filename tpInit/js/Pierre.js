@@ -6,6 +6,7 @@ function initPierre(material){
   let mesh_poigne_horizontale = new THREE.Mesh(poigne_horizontale,material);
   let poigne_verticale = new THREE.CylinderGeometry(0.2,0.2,0.5,nbFacesCylindres);
   let mesh_poigne_verticale = new THREE.Mesh(poigne_verticale,material);
+  //double de faces afin d'éviter un résultat trop moche
   let poigne_base = new THREE.CylinderGeometry(0.8,0.8,0.2,nbFacesCylindres*2);
   let mesh_poigne_base = new THREE.Mesh(poigne_base,material);
 
@@ -105,14 +106,17 @@ function tir_pierre(scene,camera,pierre,pasTir,p0,p1,p2,balais,balai2,tabPierres
       tir += pasTir;
       //positionnement de la caméra au dessus de la maison vers la fin du tir
       if(pierre.position.y<25){
+        //tir en cours, la caméra suit la pierre
         camera.position.set(pierre.position.x,pierre.position.y-5,pierre.position.z+1);
         camera.lookAt(pierre.position.x,pierre.position.y,pierre.position.z);
       }else if(pierre.position.y>29.65){
+        //approche de la maison, suppression des balais
         scene.remove(balais);
         scene.remove(balai2);
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }else{
+        //approche de la maison, positionnement de la caméra au dessus
         camera.position.set(0,33.31,25);
         camera.lookAt(0,33.31,0);
       }
@@ -149,11 +153,13 @@ function checkCollisionPierre(pierre,vitesse,tabPierres){
 }
 
 function checkCollisionBords(pierre,tabPierres){
+  //détection des bords latéraux
   if(pierre.position.x < -2.10 || pierre.position.x > 2.10){
     pierre.parent.remove(pierre);
     tabPierres.splice(tabPierres.indexOf(pierre),1);
     return true;
   }
+  //détection du bord du fond, le bord du bas est négligeable, la pierre n'ira jamais
   else if(pierre.position.y > 36.82){
     pierre.parent.remove(pierre);
     tabPierres.splice(tabPierres.indexOf(pierre),1);
