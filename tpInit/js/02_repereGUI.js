@@ -130,7 +130,7 @@ function init(){
           }
           triDistance(tabPierres);
           calculScores(tabPierres);
-        },8000);
+        },10000);
       }
    }
 
