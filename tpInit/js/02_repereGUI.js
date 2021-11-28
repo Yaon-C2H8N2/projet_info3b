@@ -40,7 +40,7 @@ function init(){
    side: THREE.DoubleSide,
  })
 
- tabPierres = []; //À FAIRE : trouver un moyen d'en faire une variable locale
+ let tabPierres = []; //À FAIRE : trouver un moyen d'en faire une variable locale
  let cptTir = 0;
  let tirEnCours = false;
  let pierre_courante = initPierre(Rouge);
@@ -104,7 +104,7 @@ function init(){
         let pasTir = (2.5/calculDistance(p0,p2))/16.6;
         scene.add(balais);
         scene.add(balai2);
-        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais,balai2);
+        tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais,balai2,tabPierres);
         tirEnCours = true;
         //verrouiller menu GUI
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
@@ -123,8 +123,9 @@ function init(){
           scene.add(pierre_courante);
           //deverouiller menu GUI
           tirEnCours = false;
-          let distanceRouge = 100;
-          let distanceBleu = 100;
+          if(cptTir == 10){
+            alert("Fin de partie");
+          }
           triDistance(tabPierres);
           calculScores(tabPierres);
         },10000);
