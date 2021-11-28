@@ -51,6 +51,19 @@ function init(){
  let piste = initPiste(scene);
  scene.add(piste);
 
+ function CheckNbTir() {
+   if(cptTir<2) {
+     document.getElementById("score_rouge").innerHTML = "il faut au moins 2 tirs pour afficher les scores";
+     document.getElementById("score_bleu").innerHTML = "il faut au moins 2 tirs pour afficher les scores";
+   }
+ }
+ function ChekkTirEnCours() {
+   if(tirEnCours) {
+     document.getElementById("score_rouge").innerHTML = "tir en cours...";
+     document.getElementById("score_bleu").innerHTML = "tir en cours...";
+   }
+ }
+
  //points de contrôles courbe de tir
  let p0 = new THREE.Vector3(0,0,0);
  let p2 = new THREE.Vector3(0,33.31,0);
@@ -97,6 +110,7 @@ function init(){
    }
 
    this.tirPierre = function(){
+      if(tirEnCours) alert("Il y a un tir en cours, attendez la fin du tir avant de rejouer")
       if(tirEnCours == false && cptTir <10){
         cptTir++;
         console.log("Tir n°"+cptTir);
@@ -107,6 +121,7 @@ function init(){
         scene.add(balai2);
         tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais,balai2,tabPierres);
         tirEnCours = true;
+        ChekkTirEnCours();
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
         //attente de la fin du tir pour faire apparaître une nouvelle pierre
         setTimeout(function(){
@@ -125,11 +140,12 @@ function init(){
           scene.add(pierre_courante);
           //deverouiller menu GUI
           tirEnCours = false;
-          if(cptTir == 10){
-            alert("Fin de partie");
-          }
           triDistance(tabPierres);
           calculScores(tabPierres);
+          CheckNbTir();
+          if(cptTir == 10){
+            alert("Fin de partie");
+            alert("Bravo à l'équipe "+getColor(tabPierres[0])+" qui remporte la partie ! Pour recommencer, actualisez la page.");}
         },10000);
       }
    }

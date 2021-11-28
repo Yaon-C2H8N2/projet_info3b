@@ -165,9 +165,13 @@ function calculScores(tab){
   }
   if(gagnant == "rouge"){
     document.getElementById("score_rouge").innerHTML = pts;
+    if(pts < 2) document.getElementById("score_rouge").innerHTML += " point";
+    if(pts > 1) document.getElementById("score_rouge").innerHTML += " points";
     document.getElementById("score_bleu").innerHTML = 0;
   }else{
     document.getElementById("score_bleu").innerHTML = pts;
+    if(pts < 2) document.getElementById("score_bleu").innerHTML += " point";
+    if(pts > 1) document.getElementById("score_bleu").innerHTML += " points";
     document.getElementById("score_rouge").innerHTML = 0;
   }
 }
