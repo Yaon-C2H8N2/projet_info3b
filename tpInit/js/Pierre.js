@@ -48,14 +48,14 @@ function initPierre(material){
   }
 
   //affichage de la poignée dans la scene
-  mesh_poigne = new THREE.Mesh(poigne,material);
+  let mesh_poigne = new THREE.Mesh(poigne,material);
   mesh_poigne.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(mesh_poigne);
 
   //lathe intermédiaire
-  pi1 = new THREE.Vector3(1.5,-0.75,0);
-  pi3 = new THREE.Vector3(1.5,-1.25,0);
-  pi2 = new THREE.Vector3((pi1.x+pi3.x)/2,(pi1.y+pi3.y)/2,(pi1.z+pi3.z)/2);
+  let pi1 = new THREE.Vector3(1.5,-0.75,0);
+  let pi3 = new THREE.Vector3(1.5,-1.25,0);
+  let pi2 = new THREE.Vector3((pi1.x+pi3.x)/2,(pi1.y+pi3.y)/2,(pi1.z+pi3.z)/2);
   let lathei = latheBezTab(nbFacesCylindres,nbFacesCylindres*2,[pi1,pi2,pi3],material.color,material.opacity,material.transparent);
   lathei.rotateOnWorldAxis(new THREE.Vector3(1,0,0),Math.PI/2);
   pierre.add(lathei);

@@ -70,7 +70,7 @@ function init(){
  let p1 = new THREE.Vector3(0,p2.y/2,0);
  let p2_sphere = point(p1);
  let p3_sphere = point(p2);
- scene.add(p2_sphere);
+ //scene.add(p2_sphere);
  scene.add(p3_sphere);
 
  //courbe de Bezier visible du joueur != courbe de tracjectoire

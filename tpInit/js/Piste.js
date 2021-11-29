@@ -1,11 +1,11 @@
 function initPiste(scene) {
 
-  let rond_rouge = new THREE.RingGeometry( 1.88, 1.22, 20 );
+  let rond_rouge = new THREE.RingGeometry( 1.88, 1.22, 50 );
   rond_rouge.translate(0,33.31,0);
   let materialRouge = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide} );
   let mesh_rond_rouge = new THREE.Mesh(rond_rouge, materialRouge);
 
-  let rond_bleu = new THREE.RingGeometry(0.66, 0.15, 20);
+  let rond_bleu = new THREE.RingGeometry(0.66, 0.15, 50);
   rond_bleu.translate(0,33.31,0);
   let materialBleu = new THREE.MeshBasicMaterial( {color: 0x0000ff, side: THREE.DoubleSide} );
   let mesh_rond_bleu = new THREE.Mesh(rond_bleu, materialBleu);
@@ -28,15 +28,15 @@ function initPiste(scene) {
   let materialGris = new THREE.MeshBasicMaterial( {color: 0xd3d3d3, side: THREE.DoubleSide} );
   //bordures piste en x = -2.25 et 2.25
   //bordures piste en y = -5.03 et 36,97
-  let coin1 = new THREE.Vector3(-2.25, -5.03, 0);  tracePoint(scene, coin1);
-  let coin2 = new THREE.Vector3(-2.25, 36.97, 0);  tracePoint(scene, coin2);
-  let coin3 = new THREE.Vector3(2.25, 36.97, 0);   tracePoint(scene, coin3);
-  let coin4 = new THREE.Vector3(2.25, -5.03, 0);   tracePoint(scene, coin4);
+  let coin1 = new THREE.Vector3(-2.25, -5.03, 0);  //tracePoint(scene, coin1);
+  let coin2 = new THREE.Vector3(-2.25, 36.97, 0);  //tracePoint(scene, coin2);
+  let coin3 = new THREE.Vector3(2.25, 36.97, 0);   //tracePoint(scene, coin3);
+  let coin4 = new THREE.Vector3(2.25, -5.03, 0);   //tracePoint(scene, coin4);
   //bordures rectangle exterieur piste à +0.5
-  let coin5 = new THREE.Vector3(-2.75, -5.53, 0);  tracePoint(scene, coin5);
-  let coin6 = new THREE.Vector3(-2.75, 37.47, 0);  tracePoint(scene, coin6);
-  let coin7 = new THREE.Vector3(2.75, 37.47, 0);   tracePoint(scene, coin7);
-  let coin8 = new THREE.Vector3(2.75, -5.53, 0);   tracePoint(scene, coin8);
+  let coin5 = new THREE.Vector3(-2.75, -5.53, 0);  //tracePoint(scene, coin5);
+  let coin6 = new THREE.Vector3(-2.75, 37.47, 0);  //tracePoint(scene, coin6);
+  let coin7 = new THREE.Vector3(2.75, 37.47, 0);   //tracePoint(scene, coin7);
+  let coin8 = new THREE.Vector3(2.75, -5.53, 0);   //tracePoint(scene, coin8);
 
   let long1 = new THREE.PlaneGeometry(0.5,43);
   long1.translate(2.5,15.97,0);
