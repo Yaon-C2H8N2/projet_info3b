@@ -156,13 +156,13 @@ function checkCollisionBords(pierre,tabPierres){
   //détection des bords latéraux
   if(pierre.position.x < -2.10 || pierre.position.x > 2.10){
     pierre.parent.remove(pierre);
-    tabPierres.splice(tabPierres.indexOf(pierre),1);
+    pierre.position.z = 10;
     return true;
   }
   //détection du bord du fond, le bord du bas est négligeable, la pierre n'ira jamais
   else if(pierre.position.y > 36.82){
     pierre.parent.remove(pierre);
-    tabPierres.splice(tabPierres.indexOf(pierre),1);
+    pierre.position.z = 10;
     return true;
   }else return false;
 }
