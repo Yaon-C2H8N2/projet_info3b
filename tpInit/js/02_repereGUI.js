@@ -51,18 +51,8 @@ function init(){
  let piste = initPiste(scene);
  scene.add(piste);
 
- function CheckNbTir() {
-   if(cptTir<2) {
-     document.getElementById("score_rouge").innerHTML = "il faut au moins 2 tirs pour afficher les scores";
-     document.getElementById("score_bleu").innerHTML = "il faut au moins 2 tirs pour afficher les scores";
-   }
- }
- function ChekkTirEnCours() {
-   if(tirEnCours) {
-     document.getElementById("score_rouge").innerHTML = "tir en cours...";
-     document.getElementById("score_bleu").innerHTML = "tir en cours...";
-   }
- }
+
+
 
  //points de contrôles courbe de tir
  let p0 = new THREE.Vector3(0,0,0);
@@ -121,7 +111,7 @@ function init(){
         scene.add(balai2);
         tir_pierre(scene,camera,pierre_courante,pasTir,p0.clone(),p1.clone(),p2.clone(),balais,balai2,tabPierres);
         tirEnCours = true;
-        ChekkTirEnCours();
+        ChekkTirEnCours(tirEnCours);
         console.log("Tir en cours, ce n'est pas une simulation, la pierre peut avoir un comportement pour le moins \"étrange\"");
         //attente de la fin du tir pour faire apparaître une nouvelle pierre
         setTimeout(function(){
@@ -141,8 +131,8 @@ function init(){
           //deverouiller menu GUI
           tirEnCours = false;
           triDistance(tabPierres);
-          calculScores(tabPierres);
-          CheckNbTir();
+          if(cptTir>1)  calculScores(tabPierres);
+          CheckNbTir(cptTir);
           if(cptTir == 10){
             alert("Fin de partie");
             alert("Bravo à l'équipe "+getColor(tabPierres[0])+" qui remporte la partie ! Pour recommencer, actualisez la page.");}

@@ -1,12 +1,12 @@
 //affichage du repere dans la scene
 function repere(MaScene){
-    var PointO3 = new THREE.Vector3( 0,0,0 );
-    var vecI = new THREE.Vector3( 1, 0, 0 );
-    var vecJ = new THREE.Vector3( 0, 1, 0 );
-    var vecK = new THREE.Vector3( 0, 0, 1 );
-    vecteur(MaScene,PointO3,vecI, 0xFF0000, 0.25, 0.125 );
-    vecteur(MaScene,PointO3,vecJ, 0x00FF00, 0.25, 0.125 );
-    vecteur(MaScene,PointO3,vecK, 0x0000FF, 0.25, 0.125 );
+  var PointO3 = new THREE.Vector3( 0,0,0 );
+  var vecI = new THREE.Vector3( 1, 0, 0 );
+  var vecJ = new THREE.Vector3( 0, 1, 0 );
+  var vecK = new THREE.Vector3( 0, 0, 1 );
+  vecteur(MaScene,PointO3,vecI, 0xFF0000, 0.25, 0.125 );
+  vecteur(MaScene,PointO3,vecJ, 0x00FF00, 0.25, 0.125 );
+  vecteur(MaScene,PointO3,vecK, 0x0000FF, 0.25, 0.125 );
 }
 
 const PrecisionArrondi=50;
@@ -29,23 +29,23 @@ function equateur(i){
     console.log("Point "+k+" : {"+x+","+y+","+z+"}");
   }
   return tab;
- }
+}
 
 //vecteur normal unitaire a une face
 function vecteurProdVec(MaScene,A,u,v,CoulHexa,longCone,RayonCone){
- let w = new THREE.Vector3(0,0,0);
- let C = new THREE.Vector3(0,0,0);
- w.crossVectors(u,v);
- w.normalize();
- C.addVectors(A,w);
- vecteur(MaScene,A,C,CoulHexa,longCone,RayonCone);
+  let w = new THREE.Vector3(0,0,0);
+  let C = new THREE.Vector3(0,0,0);
+  w.crossVectors(u,v);
+  w.normalize();
+  C.addVectors(A,w);
+  vecteur(MaScene,A,C,CoulHexa,longCone,RayonCone);
 }
 
 //vecteur AB qui est une fleche
 function vecteur(MaScene,A,B,CoulHexa,longCone,RayonCone){
- var vecAB = new THREE.Vector3( B.x-A.x, B.y-A.y, B.z-A.z );
- vecAB.normalize();
- MaScene.add( new THREE.ArrowHelper( vecAB, A, B.distanceTo(A), CoulHexa, longCone, RayonCone ));
+  var vecAB = new THREE.Vector3( B.x-A.x, B.y-A.y, B.z-A.z );
+  vecAB.normalize();
+  MaScene.add( new THREE.ArrowHelper( vecAB, A, B.distanceTo(A), CoulHexa, longCone, RayonCone ));
 }
 
 function point(A,coul){
@@ -168,23 +168,42 @@ function calculScores(tab){
     if(pts < 2) document.getElementById("score_rouge").innerHTML += " point";
     if(pts > 1) document.getElementById("score_rouge").innerHTML += " points";
     document.getElementById("score_bleu").innerHTML = 0;
+    document.getElementById("score_rouge").setAttribute("style", "color:red");
+    document.getElementById("score_bleu").setAttribute("style", "color:red");
   }else{
     document.getElementById("score_bleu").innerHTML = pts;
     if(pts < 2) document.getElementById("score_bleu").innerHTML += " point";
     if(pts > 1) document.getElementById("score_bleu").innerHTML += " points";
     document.getElementById("score_rouge").innerHTML = 0;
+    document.getElementById("score_rouge").setAttribute("style", "color:blue");
+    document.getElementById("score_bleu").setAttribute("style", "color:blue");
   }
 }
 
+function CheckNbTir(nbTir) {
+  if(nbTir<2) {
+    document.getElementById("score_rouge").innerHTML = "il faut au moins 2 tirs pour afficher les scores";
+    document.getElementById("score_bleu").innerHTML = "il faut au moins 2 tirs pour afficher les scores";
+  }
+}
+
+function ChekkTirEnCours(tir) {
+  if(tir) {
+    document.getElementById("score_rouge").setAttribute("style", "color:black");
+    document.getElementById("score_bleu").setAttribute("style", "color:black");
+    document.getElementById("score_rouge").innerHTML = "tir en cours...";
+    document.getElementById("score_bleu").innerHTML = "tir en cours...";
+  }
+}
 // affichage des composantes dans la page HTML
 function afficheVecteur(V,nom,lieu){
- var mes = nom+" : (";
- for(var i=0;i<2;i++)
-   mes+=V.getComponent(i)+" , ";
- mes+=V.getComponent(2)+" ) <br /><br /> Avec TestZero :<br />";
- mes += nom+" : (";
- for(var i=0;i<2;i++)
-   mes+=testZero(V.getComponent(i))+" , ";
- mes+=testZero(V.getComponent(2))+" ) <br />";
- document.getElementById(lieu).innerHTML+=mes;
+  var mes = nom+" : (";
+  for(var i=0;i<2;i++)
+  mes+=V.getComponent(i)+" , ";
+  mes+=V.getComponent(2)+" ) <br /><br /> Avec TestZero :<br />";
+  mes += nom+" : (";
+  for(var i=0;i<2;i++)
+  mes+=testZero(V.getComponent(i))+" , ";
+  mes+=testZero(V.getComponent(2))+" ) <br />";
+  document.getElementById(lieu).innerHTML+=mes;
 }
