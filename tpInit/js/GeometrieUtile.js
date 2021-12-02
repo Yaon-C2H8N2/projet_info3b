@@ -155,11 +155,7 @@ function triDistance(tab){
 
 function calculScores(tab){
   let gagnant = getColor(tab[0]);
-  if(tab.length==2 && calculDistance(tab[0].position, new THREE.Vector3(0,33.31,0))>4.219 && calculDistance(tab[1].position, new THREE.Vector3(0,33.31,0))>4.219) {
-    gagnant = null;
-    document.getElementById("score_rouge").innerHTML = "il faut tirer dans la zone de la maison pour marquer des points";
-    document.getElementById("score_bleu").innerHTML = "il faut tirer dans la zone de la maison pour marquer des points";
-  }else {
+  if(calculDistance(tab[0].position, new THREE.Vector3(0,33.31,0))<4.219) {
     let pts = 0;
     let i = 0;
     if(tab.length>1){
@@ -183,7 +179,20 @@ function calculScores(tab){
         document.getElementById("score_bleu").setAttribute("style", "color:blue");
       }
     }
+  }else {
+    let i = 0;
+    while(calculDistance(tab[i].position, new THREE.Vector3(0,33.31,0))>4.219) {
+      i++;
+      gagnant = null;
+      document.getElementById("score_rouge").innerHTML = "il faut tirer dans la zone de la maison pour marquer des points";
+      document.getElementById("score_bleu").innerHTML = "il faut tirer dans la zone de la maison pour marquer des points";
+    }
   }
+/*  if(tab.length==2 && calculDistance(tab[0].position, new THREE.Vector3(0,33.31,0))>4.219 && calculDistance(tab[1].position, new THREE.Vector3(0,33.31,0))>4.219) {
+    gagnant = null;
+    document.getElementById("score_rouge").innerHTML = "il faut tirer dans la zone de la maison pour marquer des points";
+    document.getElementById("score_bleu").innerHTML = "il faut tirer dans la zone de la maison pour marquer des points";
+  }else */
 }
 
 function CheckNbTir(nbTir) {
